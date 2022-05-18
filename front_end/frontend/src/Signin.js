@@ -29,8 +29,8 @@ export function Signin() {
     }
     return (
         <div className="App">
-      <input value={Email} onChange={event => {setEmaildData(event.target.value)}} type="email" placeholder='Email'></input>
-      <input value={Password} onChange={event => {setPasswordData(event.target.value)}} type="password" placeholder='Password'></input>
+      <input value={Email} type="email" placeholder='Email' onChange={event => {setEmaildData(event.target.value)}} ></input>
+      <input value={Password} type="password" placeholder='Password' onChange={event => {setPasswordData(event.target.value)}} ></input>
       <button onClick={() => {passVariablesToBackend()}}>Press here</button>
       <div id='test' >
         

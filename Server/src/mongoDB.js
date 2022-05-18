@@ -337,7 +337,7 @@ function searchUser(e_string,pw_string) {
 exports.searchUser = searchUser
 
 
-function searchUser(e_string,pw_string) {
+function registerUser(e_string,pw_string) {
   async function run(e_string,pw_string) {
       try {
         await client.connect();
@@ -347,31 +347,22 @@ function searchUser(e_string,pw_string) {
 
         // Query for a movie that has the title 'The Room'
         const one = await collection1.findOne({email:e_string})
-
-        console.log('here what i found')
-        console.log(one)
-        console.log('******************')
-
-        if(one != null){
-          console.log('******************')
-          console.log(one)
-          console.log('******************')
-
-          const two = await collection1.findOne({password:pw_string})
-          if(two){
-            console.log(two)
-            console.log(' im returning true')
+        if(one == null)  ////email hasnt found -> countine with register
+        {
+          if(pw_string.length <8) return 'password must be at least 8 chars'
+          else{
+            
+            console.log('im trying')
+            collection1.insertOne({
+              email : e_string,
+              password : pw_string
+            })
             return true
           }
-          else    
-          {
-            return false
-          }    
-          
         }
-        else {
-          console.log(' im returning false')
-          return false
+        else
+        {
+          return 'email has exist '
         }
         // since this method returns the matched document, not a cursor, print it directly
       }
@@ -383,5 +374,5 @@ function searchUser(e_string,pw_string) {
       resolve(run(e_string,pw_string))
     })  
 }
-exports.searchUser = searchUser
+exports.registerUser = registerUser
 

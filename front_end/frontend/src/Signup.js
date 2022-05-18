@@ -8,12 +8,13 @@ export function Signup() {
   
     function passVariablesToBackend () {
       console.log('Sending request to backend')
-      Axios.post('http://localhost:5000/register', {
+      Axios.post('http://localhost:5001/register', {
         email_data: Email,
         password_data: Password
       }).then(res => {
         console.log('Received response from back - response below');
         console.log(res.data);
+        
         var element = document.getElementById('test')
         element.innerText = res.data
         if(res.data) {
@@ -24,12 +25,14 @@ export function Signup() {
   
       }).catch(err => {
         console.log(err);
+        
       })
     }
     return (
         <div className="App">
-      <input value={Email} onChange={event => {setEmaildData(event.target.value)}} type="email" placeholder='Email'></input>
+      <input value={Email} type="email" placeholder='Email' onChange={event => {setEmaildData(event.target.value)}} ></input>
       <input value={Password} onChange={event => {setPasswordData(event.target.value)}} type="password" placeholder='Password'></input>
+    
       <button onClick={() => {passVariablesToBackend()}}>Register</button>
       <div id='test' >
         
