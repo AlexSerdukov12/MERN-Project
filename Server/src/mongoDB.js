@@ -297,7 +297,7 @@ function searchUser(e_string,pw_string) {
         var collection1 = client.db("users").collection("users_c")
 
         // Query for a movie that has the title 'The Room'
-        const one = await collection1.findOne({email:e_string})
+        const one = await collection1.findOne({email:e_string , password: pw_string})
 
         console.log('here what i found')
         console.log(one)
@@ -307,22 +307,15 @@ function searchUser(e_string,pw_string) {
           console.log('******************')
           console.log(one)
           console.log('******************')
-
-          const two = await collection1.findOne({password:pw_string})
-          if(two){
-            console.log(two)
-            console.log(' im returning true')
-            return true
+          console.log('login success')
+            return one._id
           }
-          else    
-          {
-            return false
-          }    
           
-        }
+               
+        
         else {
-          console.log(' im returning false')
-          return false
+          console.log('login failed')
+          return 
         }
         // since this method returns the matched document, not a cursor, print it directly
       }
