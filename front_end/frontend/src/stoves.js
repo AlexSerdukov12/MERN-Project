@@ -16,6 +16,7 @@ export function Stoves() {
       })
     }
     function RenderStoves() {
+  
       const renderItems = arrayOfMachines.map(item => 
         <div style={{border: '2px black solid', height: '400px',width: '220px', margin: '20px', display: 'grid'}}>
           <img src={item.image_link} style={{maxHeight: '150px', maxWidth:'220px'}} />
@@ -23,6 +24,8 @@ export function Stoves() {
           <div>{item.model} </div>
       <div>{item.price} {item.currency}</div>
           <div>{item.name}</div>
+          <button>add to cart</button>
+
 
         </div>)
       return <div style={{width: '100%', padding: '40px', display: 'flex'}}>

@@ -12,6 +12,7 @@ import { Stoves } from './stoves';
 import { Airconditioners } from './airconditioners';
 import { Ovens } from './ovens';
 import { useParams,useNavigate } from 'react-router-dom';
+import { wishList } from './wishList';
 
 export function Homepage() {
   const [viewPage, setViewPage] = useState('home')
@@ -53,6 +54,13 @@ export function Homepage() {
     else if (viewPage == 'ovens') {
       return <Ovens />
     }
+    ///////////////////////////////////
+    else if (viewPage == 'wishlist') {
+      return <wishList />
+    }  
+    else if (viewPage == 'cart') {
+      return <Ovens />
+    }  
     
   }
   

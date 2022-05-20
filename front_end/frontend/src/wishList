@@ -1,17 +1,13 @@
 import React, {useEffect, useState} from 'react'
-import './Signin.css'
 import Axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-export function LaundryMachines() {
+export function wishList() {
   const [arrayOfMachines, setArrayOfMachines] = useState([])
-  const navigate = useNavigate();
-
   useEffect(() => {
-     getLaundryMachines()
+    getWishList()
   },[])
-    function getLaundryMachines () {
-      console.log('Sending request to backend')
-      Axios.get('http://localhost:5001/getlaundrymachines').then(res => {
+    function getWishList () {
+      console.log('Sending request to backend-ovens')
+      Axios.get('http://localhost:5001/getwishlist').then(res => {
         console.log('Received response from back - response below');
         console.log(res.data);
         setArrayOfMachines(res.data);
@@ -19,8 +15,8 @@ export function LaundryMachines() {
         console.log(err);
       })
     }
-    function RenderLaundryMachines() {
-      const renderItems = arrayOfMachines.map(item => 
+    function RenderWishLists() {
+      const renderItems = arrayOfMachines(item => 
         <div style={{border: '2px black solid', height: '400px',width: '220px', margin: '20px', display: 'grid'}}>
           <img src={item.image_link} style={{maxHeight: '150px', maxWidth:'220px'}} />
           <div>{item.brand}</div>
@@ -36,7 +32,7 @@ export function LaundryMachines() {
     }
     return (
         <div className="App">
-              <RenderLaundryMachines />
+              <RenderWishLists />
     </div>
 
   );

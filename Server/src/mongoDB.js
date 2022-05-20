@@ -223,8 +223,6 @@ function searchAirconditioners(object) {
         console.log("im inside mongo db search for televisions")
         var collection = client.db("airconditioners").collection("airconditioners_c")
         // Query for a movie that has the title 'The Room'
-  
-  
         const airconditioners = await collection.find(object);
         // since this method returns the matched document, not a cursor, print it directly
         return airconditioners.toArray()
@@ -253,26 +251,34 @@ function searchByString(object) {
         var collection6 = client.db("stoves").collection("stoves_c")
         var collection7 = client.db("televisions").collection("televisions_c")
         var collection8 = client.db("dryers").collection("dryers_c")
+        sum_of_collection=collection1+collection2
         // Query for a movie that has the title 'The Room'
-        const one = await collection1.find({brand : object})
-
-        const two = await collection2.find({brand : object})
-
-        const three = await collection3.find({brand : object})
-
-        const four = await collection4.find({brand : object})
-
-        const five = await collection5.find({brand : object})
-
-        const six = await collection6.find({brand : object})
-
-        const seven = await collection7.find({brand : object})
-
-        const eight = await collection8.find({brand : object})
-
-
+        const one = await collection1.find({brand : object}).toArray()
+        const two = await collection2.find({brand : object}).toArray()
+        const three = await collection3.find({brand : object}).toArray()
+        const four = await collection4.find({brand : object}).toArray()
+        const five = await collection5.find({brand : object}).toArray()
+        const six = await collection6.find({brand : object}).toArray()
+        const seven = await collection7.find({brand : object}).toArray()
+        const eight = await collection8.find({brand : object}).toArray()
+        //////////////////////////////////////////////////////////////////////////////
+        const temp=[];
+        temp.push(one)
+        temp.push(two)
+        temp.push(three)
+        temp.push(four)
+        temp.push(five)
+        temp.push(six)
+        temp.push(seven)
+        temp.push(eight)
+        const found=[]
+        for( i=0;i<8;i++)
+        {
+            if(temp[i].length >0)
+            found.push(temp[i]);
+        }
         // since this method returns the matched document, not a cursor, print it directly
-        return (one,two,three,four,five,six,seven,eight).toArray()
+        return found
       }
       catch(err) {
        return err

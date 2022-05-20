@@ -2,9 +2,12 @@ import React from 'react'
 import './Signin.css'
 import {useState} from 'react'
 import Axios from 'axios'
+import { Homepage } from './homepage'
+
 export function Signin() {
     const [Email, setEmaildData ]= useState('')
     const [Password, setPasswordData] = useState('')
+    const [ID,setID]= useState('')
   
     function passVariablesToBackend () {
       console.log('Sending request to backend')
@@ -18,8 +21,15 @@ export function Signin() {
         element.innerText = res.data
         if(res.data ) {
           element.style.background = 'green'
-          ///// לעבור לדף הבית כמחובר
-        } else {
+          ///// שמירה של המשתמש 
+          setID(res.data)
+          console.log("here user id = "+ID)
+                    ///// לעבור לדף הבית כמחובר  ---- ככה לעשות?? ג
+                  window.location.href = "http://localhost:3000";
+
+            } 
+
+         else {
           element.style.background = 'red'
         }
   

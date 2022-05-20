@@ -99,15 +99,14 @@ app.get('/getovens', (req, res) => {
   })
 
 app.post('/search', jsonParser, (req, res) => {
-  console.log('Receiving data from frontend-search')
-  console.log(req.body)
   var search1 = req.body.test_data
-  console.log(search1)
-
+  console
   searchByString(search1).then((sendToFront) => {
-    console.log('here what data i got from-search')
+    console.log("**************************************************");
 
     console.log(sendToFront);
+    console.log("**************************************************");
+
     res.send(sendToFront)
   }).catch((sendToFrontError) => {
     console.log(sendToFrontError)
