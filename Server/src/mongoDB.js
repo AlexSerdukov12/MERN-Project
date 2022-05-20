@@ -274,8 +274,10 @@ function searchByString(object) {
         const found=[]
         for( i=0;i<8;i++)
         {
-            if(temp[i].length >0)
-            found.push(temp[i]);
+          for( j=0;j<(temp[i].length);j++)
+
+             found.push(temp[i][j]);
+               
         }
         // since this method returns the matched document, not a cursor, print it directly
         return found

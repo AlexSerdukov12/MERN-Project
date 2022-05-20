@@ -13,7 +13,7 @@ export function Promotions() {
     return (
         <div className="App">
         <img src={require('./My project.png') } width="500" 
-     height="500" />
+     height="500"/>
     </div>
 
   );

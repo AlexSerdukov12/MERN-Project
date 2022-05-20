@@ -10,14 +10,12 @@ export function SearchField() {
   function passToBackend () {
     console.log('Sending request to backend')
     console.log(test)
-
     axios.post('http://localhost:5001/search', {
       test_data: test,
     }).then(res => {
       console.log('Received response from back - response below');
       console.log(res.data);
       setfoundProducts(res.data);
-
     }).catch(err => {
       console.log(err);
     })
@@ -27,8 +25,9 @@ export function SearchField() {
     console.log(foundProducts)
     console.log("**********************foundProducts**************************")
 
+
     const renderItems = foundProducts.map(item=> 
-      <div style={{border: '2px black solid', height: '400px',width: '220px', margin: '20px', display: 'grid'}}>
+      <div  style={{border: '2px black solid', height: '400px',width: '220px', margin: '20px', display: 'grid'}}>
         <img src={item.image_link} style={{maxHeight: '150px', maxWidth:'220px'}} />
         <div>{item.brand}</div>
         <div>{item.model}</div>
@@ -36,7 +35,7 @@ export function SearchField() {
         <div>{item.name}</div>
         <button>add to cart</button>
       </div>)
-    return <div style={{width: '100%', padding: '40px', display: 'flex'}}>
+    return <div style={{ width: '100%', padding: '40px', display: 'flex'}}>
        {renderItems}
     </div>
   }
