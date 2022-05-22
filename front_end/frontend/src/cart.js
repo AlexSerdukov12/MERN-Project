@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from 'react'
 import Axios from 'axios'
-export function WishList(props) {
+export function Cart(props) {
   const [arrayOfMachines, setArrayOfMachines] = useState([])
   useEffect(() => {
-    getWishList()
+    getCart()
   },[])
-    function getWishList () {
+    function getCart () {
         if(!props.user) {
             alert('Please login to perform member operations!')
           } 
           else {
           console.log('Sending request to backend-dryers')
-          Axios.post('http://localhost:5001/getwishlist', {
+          Axios.post('http://localhost:5001/getcart', {
             user: props.user
           }).then(res => {
             console.log('Received response from back - response below');
-            console.log(res.data);
-            setArrayOfMachines(res.data.wishlist);
+            console.log(res.data.cart);
+            setArrayOfMachines(res.data.cart);
 
           }).catch(err => {
             console.log(err);
@@ -24,7 +24,7 @@ export function WishList(props) {
         }
     }
   
-    function RenderWishList() {
+    function RenderCart() {
       const renderItems = arrayOfMachines.map(item => 
         <div style={{border: '2px black solid', height: '400px',width: '220px', margin: '20px', display: 'grid'}}>
           <img src={item.image_link} style={{maxHeight: '150px', maxWidth:'220px'}} />
@@ -40,9 +40,9 @@ export function WishList(props) {
     }
     return (
         <div className="App">
-          <button  >buy your wish list</button>
+          <button >buy your cart</button>
 
-              <RenderWishList />
+              <RenderCart />
     </div>
 
   );

@@ -13,6 +13,7 @@ import { Airconditioners } from './airconditioners';
 import { Ovens } from './ovens';
 import { useParams,useNavigate } from 'react-router-dom';
 import { WishList } from './wishList';
+import { Cart } from './cart';
 
 export function Homepage(props) {
   const [viewPage, setViewPage] = useState('home')
@@ -59,7 +60,7 @@ export function Homepage(props) {
       return <WishList user={props.user}/>
     }  
     else if (viewPage == 'cart') {
-      return <Ovens />
+      return <Cart user={props.user} />
     }  
    
     

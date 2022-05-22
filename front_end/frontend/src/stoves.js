@@ -34,6 +34,25 @@ export function Stoves(props) {
       })
     }
     }
+    function addToCart(item) {
+      if(!props.user) {
+        alert('Please login to perform member operations!')
+      } else {
+
+      
+      console.log('Sending request to backend-dryers')
+      Axios.post('http://localhost:5001/addtocart', {
+        item: item,
+        user: props.user
+      }).then(res => {
+        console.log('Received response from back - response below');
+        console.log(res.data);
+        
+      }).catch(err => {
+        console.log(err);
+      })
+    }
+    }
     function RenderStoves() {
   
       const renderItems = arrayOfMachines.map(item => 
@@ -44,6 +63,8 @@ export function Stoves(props) {
       <div>{item.price} {item.currency}</div>
           <div>{item.name}</div>
           <button onClick={() => {addToWishlist(item)}}>add to wishlist</button>
+          <button onClick={() => {addToCart(item)}}>add to cart</button>
+
 
 
         </div>)

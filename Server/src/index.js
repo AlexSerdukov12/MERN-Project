@@ -7,7 +7,7 @@ var bodyParser = require('body-parser')
 const {searchLaundryMachines, searchDryers,
   searchRefrigerators,searchDishwashers,searchTelevisions,
   searchStoves,searchAirconditioners,searchOvens,searchByString,
-  searchUser,registerUser, updateUser,getwishList} = require('./mongoDB');
+  searchUser,registerUser, updateUser,getwishList,updateUserCart,getCart} = require('./mongoDB');
 const res = require('express/lib/response');
 
 // create application/json parser
@@ -23,7 +23,6 @@ app.get('/getlaundrymachines', (req, res) => {
     console.log(machinesError)
   })
  })
-
 app.get('/getdryers', (req, res) => {
 console.log('im inside get dryers')
 
@@ -34,7 +33,6 @@ searchDryers({}).then((dryers) => {
 
 })
 })
-
 app.get('/getrefrigerators', (req, res) => {
 console.log('im inside get refrigerators')
 
@@ -44,7 +42,6 @@ searchRefrigerators({}).then((refrigerators) => {
   console.log(refrigeratorsError)
 })
 })
-
 app.get('/getdishwashers', (req, res) => {
 console.log('im inside get dishwashers')
 
@@ -54,8 +51,6 @@ searchDishwashers({}).then((dishwashers) => {
   console.log(dishwashersError)
 })
 })
-
-
 app.get('/gettelevisions', (req, res) => {
   console.log('im inside get televisions')
   
@@ -65,7 +60,6 @@ app.get('/gettelevisions', (req, res) => {
     console.log(televisionsError)
   })
   })
-
 app.get('/getstoves', (req, res) => {
   console.log('im inside get stoves')
   
@@ -75,7 +69,6 @@ app.get('/getstoves', (req, res) => {
     console.log(stovessError)
   })
   })
-
 app.get('/getairconditioners', (req, res) => {
   console.log('im inside get airconditioners')
   
@@ -85,7 +78,7 @@ app.get('/getairconditioners', (req, res) => {
     console.log(airconditionersError)
   })
   })
-  
+
 app.get('/getovens', (req, res) => {
   console.log('im inside get ovens')
   
@@ -96,7 +89,6 @@ app.get('/getovens', (req, res) => {
     console.log(ovensError)
   })
   })
-
 app.post('/search', jsonParser, (req, res) => {
   var search1 = req.body.test_data
   console
@@ -157,6 +149,28 @@ app.post('/login', jsonParser, (req, res) => {
       getwishList(req.body).then((sendToFront) => {
         console.log(req.body)
         console.log('here what data i got from-getwishlist')
+        console.log(sendToFront);
+        res.send(sendToFront)
+      }).catch((sendToFrontError) => {
+        console.log(sendToFrontError)
+      })
+    })
+
+    app.post('/getcart', jsonParser, (req, res) => {
+      getCart(req.body).then((sendToFront) => {
+        console.log(req.body)
+        console.log('here what data i got from-getcart')
+        console.log(sendToFront);
+        res.send(sendToFront)
+      }).catch((sendToFrontError) => {
+        console.log(sendToFrontError)
+      })
+    })
+
+    app.post('/addtocart', jsonParser, (req, res) => {
+      updateUserCart(req.body).then((sendToFront) => {
+        console.log(req.body)
+        console.log('here what data i got from-cart')
         console.log(sendToFront);
         res.send(sendToFront)
       }).catch((sendToFrontError) => {
