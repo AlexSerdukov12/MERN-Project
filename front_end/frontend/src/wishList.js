@@ -34,7 +34,7 @@ export function WishList(props) {
           <div>{item.name}</div>
 
         </div>)
-      return <div style={{width: '100%', padding: '40px', display: 'flex'}}>
+      return <div style={{width: '100%', padding: '40px', display: 'flex',flexWrap: 'wrap'}}>
          {renderItems}
       </div>
     }

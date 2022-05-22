@@ -45,7 +45,7 @@ export function Dryers(props) {
           <button onClick={() => {addToWishlist(item)}}>add to wishlist</button>
 
         </div>)
-      return <div style={{width: '100%', padding: '40px', display: 'flex'}}>
+      return <div style={{width: '100%', padding: '40px', display: 'flex',flexWrap: 'wrap'}}>
          {renderItems}
       </div>
     }
