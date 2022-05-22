@@ -394,3 +394,26 @@ function registerUser(e_string,pw_string) {
 }
 exports.registerUser = registerUser
 
+
+function getwishList(data) {
+  console.log(data);
+  async function run() {
+    try {
+      await client.connect();
+      var collection1 = client.db("users").collection("users_c")
+
+      // Query for a movie that has the title 'The Room'
+      const one = await collection1.findOne({email: data.user.email} )
+      console.log("im inside withlist **************************");
+      return one
+      // since this method returns the matched document, not a cursor, print it directly
+    }
+    catch(err) {
+     return err
+    }
+  }
+  return new Promise((resolve,reject) => {
+    resolve(run(data))
+  }) 
+}
+exports.getwishList = getwishList;
