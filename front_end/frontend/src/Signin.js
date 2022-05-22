@@ -3,12 +3,13 @@ import './Signin.css'
 import {useState} from 'react'
 import Axios from 'axios'
 import { Homepage } from './homepage'
+import {setLogin} from './App'
+import { useNavigate } from 'react-router-dom'
 
-export function Signin() {
+export function Signin(props) {
     const [Email, setEmaildData ]= useState('')
     const [Password, setPasswordData] = useState('')
-    const [ID,setID]= useState('')
-  
+    const history = useNavigate()
     function passVariablesToBackend () {
       console.log('Sending request to backend')
       Axios.post('http://localhost:5001/login', {
@@ -21,12 +22,12 @@ export function Signin() {
         element.innerText = res.data
         if(res.data ) {
           element.style.background = 'green'
-          ///// שמירה של המשתמש 
-          setID(res.data)
-          console.log("here user id = "+ID)
+          console.log("here user  = "+ res.data)
+          props.setuser(res.data)
+          history('/')
                     ///// לעבור לדף הבית כמחובר  ---- ככה לעשות?? ג
-                  window.location.href = "http://localhost:3000";
-
+                              ///// שמירה של המשתמש 
+         // window.location.href = "http://localhost:3000";
             } 
 
          else {

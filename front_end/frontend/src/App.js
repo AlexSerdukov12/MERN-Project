@@ -8,20 +8,23 @@ import { Homepage } from './homepage';
 import { Signin } from './Signin';
 import { Signup } from './Signup';
 
-function App() {
 
-  
+function App() {
+const [user,setuser]=useState(null)
   return (
 
 <BrowserRouter>
      <Routes>
-        <Route path='/' element={<Homepage />} />
-        <Route path='/signin' element={<Signin />} />
-        <Route path='/signup' element={<Signup />}  />
+        <Route path='/' element={<Homepage user={user} setuser={setuser} />} />
+        <Route path='/signin' element={<Signin user={user} setuser={setuser} />} />
+        <Route path='/signup' element={<Signup user={user} setuser={setuser} />}  />
      </Routes>
 </BrowserRouter>
  
   );
 }
 
+
+
 export default App;
+

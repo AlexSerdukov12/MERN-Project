@@ -7,7 +7,7 @@ var bodyParser = require('body-parser')
 const {searchLaundryMachines, searchDryers,
   searchRefrigerators,searchDishwashers,searchTelevisions,
   searchStoves,searchAirconditioners,searchOvens,searchByString,
-  searchUser,registerUser} = require('./mongoDB');
+  searchUser,registerUser, updateUser} = require('./mongoDB');
 const res = require('express/lib/response');
 
 // create application/json parser
@@ -32,7 +32,6 @@ searchDryers({}).then((dryers) => {
 }).catch((dryersError) => {
   console.log('failed to pull')
 
-  console.log(dryersError)
 })
 })
 
@@ -118,8 +117,6 @@ app.post('/login', jsonParser, (req, res) => {
     console.log(req.body);
     var email = req.body.email_data
     var pw = req.body.password_data
-    console.log(email,pw)
-    console.log(searchUser(email,pw))
     searchUser(email,pw).then((sendToFront) => {
       console.log('here what data i got from-search')
       console.log(sendToFront);
@@ -145,7 +142,15 @@ app.post('/login', jsonParser, (req, res) => {
         console.log(sendToFrontError)
       })
     })
-  
+    app.post('/addtowishlist', jsonParser, (req, res) => {
+      updateUser(req.body).then((sendToFront) => {
+        console.log('here what data i got from-register')
+        console.log(sendToFront);
+        res.send(sendToFront)
+      }).catch((sendToFrontError) => {
+        console.log(sendToFrontError)
+      })
+    })
 
 
 

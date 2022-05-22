@@ -26,10 +26,12 @@ export function wishList() {
           <button>add to cart</button>
 
         </div>)
-      return <div style={{width: '100%', padding: '40px', display: 'flex'}}>
+      return <div style={{ width: '100%', display: flex,
+       padding: '40px'}}>
          {renderItems}
       </div>
     }
+
     return (
         <div className="App">
               <RenderWishLists />

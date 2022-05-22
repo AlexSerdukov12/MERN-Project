@@ -292,8 +292,28 @@ function searchByString(object) {
 }
 exports.searchByString = searchByString
 
+function updateUser(data) {
+  console.log(data);
+  async function run() {
+    try {
+      await client.connect();
+      var collection1 = client.db("users").collection("users_c")
 
+      // Query for a movie that has the title 'The Room'
+      const one = await collection1.updateOne({email: data.user.email} ,{$set: {wishlist: [...data.user.wishlist,data.item]} }, { upsert: true })
 
+      console.log(one);
+      // since this method returns the matched document, not a cursor, print it directly
+    }
+    catch(err) {
+     return err
+    }
+  }
+  return new Promise((resolve,reject) => {
+    resolve(run())
+  }) 
+}
+exports.updateUser = updateUser
 
 
 function searchUser(e_string,pw_string) {
@@ -308,22 +328,19 @@ function searchUser(e_string,pw_string) {
         const one = await collection1.findOne({email:e_string , password: pw_string})
 
         console.log('here what i found')
-        console.log(one)
+        console.log(one.toString())
         console.log('******************')
 
-        if(one != null){
+        if(one ){
           console.log('******************')
           console.log(one)
           console.log('******************')
           console.log('login success')
-            return one._id
+            return one
           }
-          
-               
-        
         else {
           console.log('login failed')
-          return 
+          return 'login failed'
         }
         // since this method returns the matched document, not a cursor, print it directly
       }
@@ -356,7 +373,7 @@ function registerUser(e_string,pw_string) {
             console.log('im trying')
             collection1.insertOne({
               email : e_string,
-              password : pw_string
+              password : pw_string,wishlist:[]
             })
             return true
           }

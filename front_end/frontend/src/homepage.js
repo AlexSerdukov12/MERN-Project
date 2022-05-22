@@ -14,7 +14,7 @@ import { Ovens } from './ovens';
 import { useParams,useNavigate } from 'react-router-dom';
 import { wishList } from './wishList';
 
-export function Homepage() {
+export function Homepage(props) {
   const [viewPage, setViewPage] = useState('home')
   const {page}=useParams()
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ export function Homepage() {
       return <LaundryMachines />
     }
     else if (viewPage == 'dryers') {
-      return <Dryers />
+      return <Dryers user={props.user} />
     }
     else if (viewPage == 'refrigerators') {
 
@@ -61,6 +61,7 @@ export function Homepage() {
     else if (viewPage == 'cart') {
       return <Ovens />
     }  
+   
     
   }
   
