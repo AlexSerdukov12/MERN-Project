@@ -374,7 +374,11 @@ function registerUser(e_string,pw_string) {
             console.log('im trying')
             collection1.insertOne({
               email : e_string,
-              password : pw_string,wishlist:[]
+              password : pw_string,
+              wishlist:[],
+              cart:[]
+             
+
             })
             return true
           }
@@ -418,3 +422,52 @@ function getwishList(data) {
   }) 
 }
 exports.getwishList = getwishList;
+
+
+function getCart(data) {
+  console.log(data);
+  async function run() {
+    try {
+      await client.connect();
+      var collection1 = client.db("users").collection("users_c")
+
+      // Query for a movie that has the title 'The Room'
+      const one = await collection1.findOne({email: data.user.email} )
+      console.log("im inside cart **************************");
+      return one
+      // since this method returns the matched document, not a cursor, print it directly
+    }
+    catch(err) {
+     return err
+    }
+  }
+  return new Promise((resolve,reject) => {
+    resolve(run(data))
+  }) 
+}
+exports.getCart = getCart;
+
+
+function updateUserCart(data) {
+  console.log(data);
+  async function run() {
+    try {
+      await client.connect();
+      var collection1 = client.db("users").collection("users_c")
+
+      // Query for a movie that has the title 'The Room'
+      const one = await collection1.updateOne({email: data.user.email} ,   { $push: { cart: data.item } }
+        , { upsert: true })
+
+      console.log('i added item on cart');
+      // since this method returns the matched document, not a cursor, print it directly
+    }
+    catch(err) {
+     return err
+    }
+  }
+  return new Promise((resolve,reject) => {
+    resolve(run())
+  }) 
+}
+exports.updateUserCart = updateUserCart
