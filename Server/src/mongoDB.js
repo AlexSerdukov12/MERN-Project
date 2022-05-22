@@ -296,13 +296,14 @@ function updateUser(data) {
   console.log(data);
   async function run() {
     try {
-      await client.connect();
+      await client.connect();z``
       var collection1 = client.db("users").collection("users_c")
 
       // Query for a movie that has the title 'The Room'
-      const one = await collection1.updateOne({email: data.user.email} ,{$set: {wishlist: [...data.user.wishlist,data.item]} }, { upsert: true })
+      const one = await collection1.updateOne({email: data.user.email} ,   { $push: { wishlist: data.item } }
+        , { upsert: true })
 
-      console.log(one);
+      console.log('i added ____________________________');
       // since this method returns the matched document, not a cursor, print it directly
     }
     catch(err) {
