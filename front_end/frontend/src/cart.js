@@ -37,6 +37,7 @@ export function Cart(props) {
       }).then(res => {
         console.log('Received response from back - response below');
         console.log(res.data);
+        getCart()
         
       }).catch(err => {
         console.log(err);

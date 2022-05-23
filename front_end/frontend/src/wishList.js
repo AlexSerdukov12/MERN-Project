@@ -8,14 +8,12 @@ export function WishList(props) {
     function getWishList () {
         if(!props.user) {
             alert('Please login to perform member operations!')
+            
           } 
           else {
-          console.log('Sending request to backend-dryers')
           Axios.post('http://localhost:5001/getwishlist', {
             user: props.user
           }).then(res => {
-            console.log('Received response from back - response below');
-            console.log(res.data);
             setArrayOfMachines(res.data.wishlist);
 
           }).catch(err => {
@@ -27,8 +25,6 @@ export function WishList(props) {
       if(!props.user) {
         alert('Please login to perform member operations!')
       } else {
-
-      
       console.log('Sending request to backend-dryers')
       Axios.post('http://localhost:5001/removefromwihlist', {
         item: item,
@@ -36,7 +32,7 @@ export function WishList(props) {
       }).then(res => {
         console.log('Received response from back - response below');
         console.log(res.data);
-        
+        getWishList()
       }).catch(err => {
         console.log(err);
       })
@@ -60,7 +56,10 @@ export function WishList(props) {
     }
     return (
         <div className="App">
-          <button  >buy your wish list</button>
+              <form action="/addAdress">
+                  <input type="submit" value="Buy all wishlist" />
+              </form>
+
 
               <RenderWishList />
     </div>

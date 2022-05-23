@@ -11,12 +11,9 @@ export function MyProfile(props) {
             
           } 
           else {
-          console.log('Sending request to backend-dryers')
           Axios.post('http://localhost:5001/getcart', {
             user: props.user
           }).then(res => {
-            console.log('Received response from back - response below');
-            console.log(res.data.cart);
             setArrayOfMachines(res.data.cart);
 
           }).catch(err => {

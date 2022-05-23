@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Homepage } from './homepage';
 import { Signin } from './Signin';
 import { Signup } from './Signup';
+import {MyAddress} from './Address'
 
 
 function App() {
@@ -18,6 +19,9 @@ const [user,setuser]=useState(null)
         <Route path='/' element={<Homepage user={user} setuser={setuser} />} />
         <Route path='/signin' element={<Signin user={user} setuser={setuser} />} />
         <Route path='/signup' element={<Signup user={user} setuser={setuser} />}  />
+        <Route path='/addAdress' element={<MyAddress user={user} setuser={setuser} />}  />
+
+
      </Routes>
 </BrowserRouter>
  

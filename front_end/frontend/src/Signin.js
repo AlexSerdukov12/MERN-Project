@@ -24,6 +24,7 @@ export function Signin(props) {
           element.style.background = 'green'
           console.log("here user  = "+ res.data)
           props.setuser(res.data)
+          sessionStorage.setItem('user', JSON.stringify( res.data))
           history('/')
                     ///// לעבור לדף הבית כמחובר  ---- ככה לעשות?? ג
                               ///// שמירה של המשתמש 

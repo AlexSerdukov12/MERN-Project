@@ -31,7 +31,7 @@ function searchDryers(object) {
   async function run(object) {
       try {
         await client.connect();
-        console.log('sucess to log in')
+        //console.log('sucess to log in')
         var collection = client.db("dryers").collection("dryers_c")
         // Query for a movie that has the title 'The Room'
   
@@ -56,7 +56,7 @@ function searchRefrigerators(object) {
   async function run(object) {
       try {
         await client.connect();
-        console.log("im inside mongo db search for getrefrigerators")
+        //console.log("im inside mongo db search for getrefrigerators")
         var collection = client.db("refrigerators").collection("refrigerators_c")
         // Query for a movie that has the title 'The Room'
   
@@ -80,7 +80,7 @@ function searchDishwashers(object) {
   async function run(object) {
       try {
         await client.connect();
-        console.log("im inside mongo db search for dishwashers")
+        //console.log("im inside mongo db search for dishwashers")
         var collection = client.db("dishwashers").collection("dishwashers_c")
         // Query for a movie that has the title 'The Room'
   
@@ -103,7 +103,7 @@ function searchTelevisions(object) {
   async function run(object) {
       try {
         await client.connect();
-        console.log("im inside mongo db search for televisions")
+        //console.log("im inside mongo db search for televisions")
         var collection = client.db("televisions").collection("televisions_c")
         // Query for a movie that has the title 'The Room'
   
@@ -126,7 +126,7 @@ function searchStoves(object) {
   async function run(object) {
       try {
         await client.connect();
-        console.log("im inside mongo db search for televisions")
+        //console.log("im inside mongo db search for televisions")
         var collection = client.db("stoves").collection("stoves_c")
         // Query for a movie that has the title 'The Room'
   
@@ -149,7 +149,7 @@ function searchAirconditioners(object) {
   async function run(object) {
       try {
         await client.connect();
-        console.log("im inside mongo db search for televisions")
+        //console.log("im inside mongo db search for televisions")
         var collection = client.db("airconditioners").collection("airconditioners_c")
         // Query for a movie that has the title 'The Room'
   
@@ -172,7 +172,7 @@ function searchOvens(object) {
   async function run(object) {
       try {
         await client.connect();
-        console.log("im inside mongo db search for ovens")
+        //console.log("im inside mongo db search for ovens")
         var collection = client.db("ovens").collection("ovens_c")
         // Query for a movie that has the title 'The Room'
   
@@ -197,7 +197,7 @@ function searchStoves(object) {
   async function run(object) {
       try {
         await client.connect();
-        console.log("im inside mongo db search for televisions")
+        //console.log("im inside mongo db search for televisions")
         var collection = client.db("stoves").collection("stoves_c")
         // Query for a movie that has the title 'The Room'
   
@@ -220,7 +220,7 @@ function searchAirconditioners(object) {
   async function run(object) {
       try {
         await client.connect();
-        console.log("im inside mongo db search for televisions")
+        //console.log("im inside mongo db search for televisions")
         var collection = client.db("airconditioners").collection("airconditioners_c")
         // Query for a movie that has the title 'The Room'
         const airconditioners = await collection.find(object);
@@ -241,8 +241,8 @@ function searchByString(object) {
   async function run(object) {
       try {
         await client.connect();
-        console.log('im searching on db for : ')
-        console.log(object)
+        //console.log('im searching on db for : ')
+        //console.log(object)
         var collection1 = client.db("airconditioners").collection("airconditioners_c")
         var collection2 = client.db("dishwashers").collection("dishwashers_c")
         var collection3 = client.db("laundrymachines").collection("laundrymachines_c")
@@ -293,7 +293,6 @@ function searchByString(object) {
 exports.searchByString = searchByString
 
 function updateUser(data) {
-  console.log(data);
   async function run() {
     try {
       await client.connect();
@@ -303,7 +302,7 @@ function updateUser(data) {
       const one = await collection1.updateOne({email: data.user.email} ,   { $push: { wishlist: data.item } }
         , { upsert: true })
 
-      console.log('i added ____________________________');
+      //console.log('i added ____________________________');
       // since this method returns the matched document, not a cursor, print it directly
     }
     catch(err) {
@@ -321,25 +320,25 @@ function searchUser(e_string,pw_string) {
   async function run(e_string,pw_string) {
       try {
         await client.connect();
-        console.log('im searching on db for : ')
-        console.log(e_string,pw_string)
+        //console.log('im searching on db for : ')
+        //console.log(e_string,pw_string)
         var collection1 = client.db("users").collection("users_c")
 
         // Query for a movie that has the title 'The Room'
         const one = await collection1.findOne({email:e_string , password: pw_string})
 
-        console.log('here what i found')
-        console.log('******************')
+        //console.log('here what i found')
+        //console.log('******************')
 
         if(one ){
-          console.log('******************')
-          console.log(one)
-          console.log('******************')
-          console.log('login success')
+          //console.log('******************')
+          //console.log(one)
+          //console.log('******************')
+          //console.log('login success')
             return one
           }
         else {
-          console.log('login failed')
+          //console.log('login failed')
           return null
         }
         // since this method returns the matched document, not a cursor, print it directly
@@ -359,8 +358,8 @@ function registerUser(e_string,pw_string) {
   async function run(e_string,pw_string) {
       try {
         await client.connect();
-        console.log('im searching on db for : ')
-        console.log(e_string,pw_string)
+        //console.log('im searching on db for : ')
+        //console.log(e_string,pw_string)
         var collection1 = client.db("users").collection("users_c")
 
         // Query for a movie that has the title 'The Room'
@@ -370,7 +369,7 @@ function registerUser(e_string,pw_string) {
           if(pw_string.length <8) return 'password must be at least 8 chars'
           else{
             
-            console.log('im trying')
+            //console.log('im trying')
             collection1.insertOne({
               email : e_string,
               password : pw_string,
@@ -416,7 +415,6 @@ exports.registerUser = registerUser
 
 
 function getwishList(data) {
-  console.log(data);
   async function run() {
     try {
       await client.connect();
@@ -424,7 +422,6 @@ function getwishList(data) {
 
       // Query for a movie that has the title 'The Room'
       const one = await collection1.findOne({email: data.user.email} )
-      console.log("im inside withlist **************************");
       return one
       // since this method returns the matched document, not a cursor, print it directly
     }
@@ -440,7 +437,6 @@ exports.getwishList = getwishList;
 
 
 function getCart(data) {
-  console.log(data);
   async function run() {
     try {
       await client.connect();
@@ -448,7 +444,7 @@ function getCart(data) {
 
       // Query for a movie that has the title 'The Room'
       const one = await collection1.findOne({email: data.user.email} )
-      console.log("im inside cart **************************");
+      //console.log("im inside cart **************************");
       return one
       // since this method returns the matched document, not a cursor, print it directly
     }
@@ -464,7 +460,6 @@ exports.getCart = getCart;
 
 
 function updateUserCart(data) {
-  console.log(data);
   async function run() {
     try {
       await client.connect();
@@ -474,7 +469,7 @@ function updateUserCart(data) {
       const one = await collection1.updateOne({email: data.user.email} ,   { $push: { cart: data.item } }
         , { upsert: true })
 
-      console.log('i added item on cart');
+      //console.log('i added item on cart');
       // since this method returns the matched document, not a cursor, print it directly
     }
     catch(err) {
@@ -488,7 +483,6 @@ function updateUserCart(data) {
 exports.updateUserCart = updateUserCart
 
 function removeItemFromeUserCart(data) {
-  console.log(data);
   const remove=data.item
   async function run() {
     try {
@@ -500,7 +494,7 @@ function removeItemFromeUserCart(data) {
 
         const one = await collection1.updateOne({email: data.user.email} ,   { $pull: { cart: data.item } })
 
-      console.log('i removed item on cart');
+      //console.log('i removed item on cart');
       return true
     }
     catch(err) {
@@ -515,19 +509,16 @@ exports.removeItemFromeUserCart = removeItemFromeUserCart
 
 
 function removeItemFromeUserwishlist(data) {
-  console.log(data);
   const remove=data.item
   async function run() {
     try {
       await client.connect();
       var collection1 = client.db("users").collection("users_c")
 
-      // Query for a movie that has the title 'The Room'
-      console
-
+      // Query for a movie that as the title 'The Room'
         const one = await collection1.updateOne({email: data.user.email} ,   { $pull: { wishlist: data.item } })
 
-      console.log('i removed item on wishlist');
+      //console.log('i removed item on wishlist');
       return true
     }
     catch(err) {
@@ -539,3 +530,42 @@ function removeItemFromeUserwishlist(data) {
   }) 
 }
 exports.removeItemFromeUserwishlist = removeItemFromeUserwishlist
+
+
+
+function returnUser(data) {
+  async function run(data) {
+      try {
+        await client.connect();
+        //console.log('im searching on db for : ')
+        //console.log(data)
+        var collection1 = client.db("users").collection("users_c")
+
+        // Query for a movie that has the title 'The Room'
+        const one = await collection1.findOne(data)
+
+        //console.log('here what i found')
+        //console.log('******************')
+
+        if(one ){
+          //console.log('******************')
+          //console.log(one)
+          //console.log('******************')
+          //console.log('search user success')
+            return one
+          }
+        else {
+          //console.log('fail search user ')
+          return null
+        }
+        // since this method returns the matched document, not a cursor, print it directly
+      }
+      catch(err) {
+       return err
+      }
+    }
+    return new Promise((resolve,reject) => {
+      resolve(run(data))
+    })  
+}
+exports.returnUser = returnUser
