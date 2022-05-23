@@ -1,11 +1,14 @@
 import React from 'react'
 import './Signin.css'
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import Axios from 'axios'
-export function Signup() {
+export function Signup(props) {
     const [Email, setEmaildData ]= useState('')
     const [Password, setPasswordData] = useState('')
-  
+    const history = useNavigate()
+
     function passVariablesToBackend () {
       console.log('Sending request to backend')
       Axios.post('http://localhost:5001/register', {
@@ -17,9 +20,11 @@ export function Signup() {
         
         var element = document.getElementById('test')
         element.innerText = res.data
-        if(res.data) {
-          element.style.background = 'green'
-        } else {
+        if(res.data==true) {
+          props.setuser(res.data)
+          history('/')
+        }
+                 else {
           element.style.background = 'red'
         }
   

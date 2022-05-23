@@ -20,7 +20,7 @@ export function Signin(props) {
         console.log(res.data);
         var element = document.getElementById('test')
         element.innerText = res.data
-        if(res.data ) {
+        if(res.data) {
           element.style.background = 'green'
           console.log("here user  = "+ res.data)
           props.setuser(res.data)
@@ -31,7 +31,8 @@ export function Signin(props) {
             } 
 
          else {
-          element.style.background = 'red'
+          alert('bad email/password')
+
         }
   
       }).catch(err => {

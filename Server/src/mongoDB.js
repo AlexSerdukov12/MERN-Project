@@ -296,7 +296,7 @@ function updateUser(data) {
   console.log(data);
   async function run() {
     try {
-      await client.connect();z``
+      await client.connect();
       var collection1 = client.db("users").collection("users_c")
 
       // Query for a movie that has the title 'The Room'
@@ -329,7 +329,6 @@ function searchUser(e_string,pw_string) {
         const one = await collection1.findOne({email:e_string , password: pw_string})
 
         console.log('here what i found')
-        console.log(one.toString())
         console.log('******************')
 
         if(one ){
@@ -341,7 +340,7 @@ function searchUser(e_string,pw_string) {
           }
         else {
           console.log('login failed')
-          return 'login failed'
+          return null
         }
         // since this method returns the matched document, not a cursor, print it directly
       }
@@ -376,8 +375,24 @@ function registerUser(e_string,pw_string) {
               email : e_string,
               password : pw_string,
               wishlist:[],
-              cart:[]
-             
+              cart:[],
+              addres :[
+                Array[0]="Country",
+                Array[1]="City",
+                Array[2]="Zip",
+                Array[3]="Street",
+                Array[4]="No.Street",
+                Array[5]="No.Apartment",
+                Array[6]="Phone Number"
+
+            
+              ],
+               payment:[
+                Array[0]="Card Number",
+                Array[1]="Expiration Date",
+                Array[2]="CVC"
+              ], 
+              orders:[]
 
             })
             return true
@@ -471,3 +486,56 @@ function updateUserCart(data) {
   }) 
 }
 exports.updateUserCart = updateUserCart
+
+function removeItemFromeUserCart(data) {
+  console.log(data);
+  const remove=data.item
+  async function run() {
+    try {
+      await client.connect();
+      var collection1 = client.db("users").collection("users_c")
+
+      // Query for a movie that has the title 'The Room'
+      console
+
+        const one = await collection1.updateOne({email: data.user.email} ,   { $pull: { cart: data.item } })
+
+      console.log('i removed item on cart');
+      return true
+    }
+    catch(err) {
+     return err
+    }
+  }
+  return new Promise((resolve,reject) => {
+    resolve(run())
+  }) 
+}
+exports.removeItemFromeUserCart = removeItemFromeUserCart
+
+
+function removeItemFromeUserwishlist(data) {
+  console.log(data);
+  const remove=data.item
+  async function run() {
+    try {
+      await client.connect();
+      var collection1 = client.db("users").collection("users_c")
+
+      // Query for a movie that has the title 'The Room'
+      console
+
+        const one = await collection1.updateOne({email: data.user.email} ,   { $pull: { wishlist: data.item } })
+
+      console.log('i removed item on wishlist');
+      return true
+    }
+    catch(err) {
+     return err
+    }
+  }
+  return new Promise((resolve,reject) => {
+    resolve(run())
+  }) 
+}
+exports.removeItemFromeUserwishlist = removeItemFromeUserwishlist
