@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start_server": "node Server/src/index.js",
-    "test": "mocha tests/*.spec.js --color",
+    "test": "mocha tests/*.spec.js --colפor",
     "lint": "eslint Server/src/* --color"
   },
   "repository": {
