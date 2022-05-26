@@ -2,10 +2,14 @@ import React from 'react'
 import './Signin.css'
 import {useState} from 'react'
 import Axios from 'axios'
-export function Signin() {
+import { Homepage } from './homepage'
+import {setLogin} from './App'
+import { useNavigate } from 'react-router-dom'
+
+export function Signin(props) {
     const [Email, setEmaildData ]= useState('')
     const [Password, setPasswordData] = useState('')
-  
+    const history = useNavigate()
     function passVariablesToBackend () {
       console.log('Sending request to backend')
       Axios.post('http://localhost:5001/login', {
@@ -16,10 +20,20 @@ export function Signin() {
         console.log(res.data);
         var element = document.getElementById('test')
         element.innerText = res.data
-        if(res.data == 'FOUND') {
+        if(res.data) {
           element.style.background = 'green'
-        } else {
-          element.style.background = 'red'
+          console.log("here user  = "+ res.data)
+          props.setuser(res.data)
+          sessionStorage.setItem('user', JSON.stringify( res.data))
+          history('/')
+                    ///// לעבור לדף הבית כמחובר  ---- ככה לעשות?? ג
+                              ///// שמירה של המשתמש 
+         // window.location.href = "http://localhost:3000";
+            } 
+
+         else {
+          alert('bad email/password')
+
         }
   
       }).catch(err => {
@@ -28,8 +42,8 @@ export function Signin() {
     }
     return (
         <div className="App">
-      <input value={Email} onChange={event => {setEmaildData(event.target.value)}} type="email" placeholder='Email'></input>
-      <input value={Password} onChange={event => {setPasswordData(event.target.value)}} type="password" placeholder='Password'></input>
+      <input value={Email} type="email" placeholder='Email' onChange={event => {setEmaildData(event.target.value)}} ></input>
+      <input value={Password} type="password" placeholder='Password' onChange={event => {setPasswordData(event.target.value)}} ></input>
       <button onClick={() => {passVariablesToBackend()}}>Press here</button>
       <div id='test' >
         

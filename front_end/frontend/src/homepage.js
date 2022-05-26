@@ -12,8 +12,10 @@ import { Stoves } from './stoves';
 import { Airconditioners } from './airconditioners';
 import { Ovens } from './ovens';
 import { useParams,useNavigate } from 'react-router-dom';
-
-export function Homepage() {
+import { WishList } from './wishList';
+import { Cart } from './cart';
+import {MyProfile} from './myprofile'
+export function Homepage(props) {
   const [viewPage, setViewPage] = useState('home')
   const {page}=useParams()
   const navigate = useNavigate();
@@ -28,31 +30,41 @@ export function Homepage() {
       return <Promotions />
     } 
     else if (viewPage == 'laundrymachines') {
-      return <LaundryMachines />
+      return <LaundryMachines user={props.user}/>
     }
     else if (viewPage == 'dryers') {
-      return <Dryers />
+      return <Dryers user={props.user} />
     }
     else if (viewPage == 'refrigerators') {
 
-      return <Refrigerators />
+      return <Refrigerators user={props.user}/>
     }
     else if (viewPage == 'dishwashers') {
-      return <Dishwashers />
+      return <Dishwashers user={props.user}/>
     }
     else if (viewPage == 'televisions') {
-      return <Televisions />
+      return <Televisions user={props.user}/>
     }
     else if (viewPage == 'stoves') {
 
-      return <Stoves />
+      return <Stoves user={props.user}/>
     }
     else if (viewPage == 'airconditioners') {
-      return <Airconditioners />
+      return <Airconditioners user={props.user}/>
     }
     else if (viewPage == 'ovens') {
-      return <Ovens />
+      return <Ovens user={props.user}/>
     }
+    ///////////////////////////////////
+    else if (viewPage == 'wishlist') {
+      return <WishList user={props.user}/>
+    }  
+    else if (viewPage == 'cart') {
+      return <Cart user={props.user} />
+    }  
+    else if (viewPage == 'myprofile') {
+      return <MyProfile user={props.user} />
+    } 
     
   }
   

@@ -14,13 +14,16 @@ export function Menu(params) {
   <a style={{cursor: 'pointer'}} onClick={() => {params.setViewPage('stoves')}}>Stoves</a>
   <a style={{cursor: 'pointer'}} onClick={() => {params.setViewPage('airconditioners')}}>Air Conditioners</a>
   <a style={{cursor: 'pointer'}} onClick={() => {params.setViewPage('ovens')}}>Ovens</a>
+  <a style={{cursor: 'pointer'}} onClick={() => {params.setViewPage('cart')}}>cart</a>
+  <a style={{cursor: 'pointer'}} onClick={() => {params.setViewPage('wishlist')}}>wishlist</a>
+  <a style={{cursor: 'pointer'}} onClick={() => {params.setViewPage('myprofile')}}>My Profile</a>
+
 
 
   <div class='sidebar'> 
      <a href="/signin">Sign in</a>
   <a href="/signup">Sign up</a>
-  <a href="/wishlist">Wish list</a>
-  <a href="/cart">cart</a></div>
+</div>
 
 
   </div>
