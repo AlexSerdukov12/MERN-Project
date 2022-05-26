@@ -7,7 +7,8 @@ var bodyParser = require('body-parser')
 const {searchLaundryMachines, searchDryers,
   searchRefrigerators,searchDishwashers,searchTelevisions,
   searchStoves,searchAirconditioners,searchOvens,searchByString,
-  searchUser,registerUser, updateUser,getwishList,updateUserCart,getCart,removeItemFromeUserCart,removeItemFromeUserwishlist,returnUser} = require('./mongoDB');
+  searchUser,registerUser, updateUser,getwishList,updateUserCart,getCart,removeItemFromeUserCart,removeItemFromeUserwishlist,returnUser,
+  addToOrdersFromWishList} = require('./mongoDB');
 const res = require('express/lib/response');
 
 // create application/json parser
@@ -201,6 +202,15 @@ app.post('/login', jsonParser, (req, res) => {
         res.send(sendToFront)
       }).catch((sendToFrontError) => {
         ////console.log(sendToFrontError)
+      })
+    })
+
+
+    app.post('/addToOrdersfromwishlist', jsonParser, (req, res) => {
+      addToOrdersFromWishList(req.body).then((sendToFront) => {
+        res.send(sendToFront)
+      }).catch((sendToFrontError) => {
+        console.log(sendToFrontError)
       })
     })
 

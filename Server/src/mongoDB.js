@@ -569,3 +569,29 @@ function returnUser(data) {
     })  
 }
 exports.returnUser = returnUser
+
+
+
+function addToOrdersFromWishList(data) {
+  async function run() {
+    try {
+      await client.connect()
+      var collection1 = client.db("users").collection("users_c")
+      const one = await collection1.updateOne({email: data.user.email},{ $push: { orders :{$each: data.user.wishlist}} })
+      ///////////remove all wishlist items
+     // let updateQuantityOfITems=data.user.wishlist 
+     // console.log(updateQuantityOfITems)     
+     // await collection1.updateOne({email: data.user.email},{ $pull: { wishlist } })
+
+
+      return ' i added'
+    }
+    catch(err) {
+     return err
+    }
+  }
+  return new Promise((resolve,reject) => {
+    resolve(run())
+  }) 
+}
+exports.addToOrdersFromWishList = addToOrdersFromWishList
