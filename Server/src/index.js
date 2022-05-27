@@ -184,6 +184,15 @@ app.post('/checkitemsfromwishlist', jsonParser, (req, res) => {
   })
 })
 
+app.post('/getuserorders', jsonParser, (req, res) => {
+  console.log('im on getuserorders')
+  returnUser(req.body).then((sendToFront) => {
+    res.send(sendToFront)
+  }).catch((sendToFrontError) => {
+    console.log(sendToFrontError)
+  })
+})
+
 
 app.listen(port, () => {
   console.log('lets rocknroll');

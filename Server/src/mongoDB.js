@@ -413,11 +413,14 @@ exports.removeItemFromeUserwishlist = removeItemFromeUserwishlist
 
 
 function returnUser(data) {
-  async function run(data) {
+  async function run() {
       try {
+        console.log('im on returnUser')
+        console.log(data.data)
+
         await client.connect();
         var collection1 = client.db("users").collection("users_c")
-        const one = await collection1.findOne(data)
+        const one = await collection1.findOne({email:data.data})
         if(one ){
             return one
           }
@@ -430,7 +433,7 @@ function returnUser(data) {
       }
     }
     return new Promise((resolve,reject) => {
-      resolve(run(data))
+      resolve(run())
     })  
 }
 exports.returnUser = returnUser
