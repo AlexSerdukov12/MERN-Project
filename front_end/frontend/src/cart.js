@@ -37,6 +37,12 @@ export function Cart(props) {
       }).then(res => {
         console.log('Received response from back - response below');
         console.log(res.data);
+        var update=sessionStorage.getItem('user')
+        update=JSON.parse(update)
+        var newArray = update.cart.filter(i => i._id !== item._id)
+        console.log(newArray);
+            update.cart = newArray
+            sessionStorage.setItem('user',JSON.stringify(update))
         getCart()
         
       }).catch(err => {

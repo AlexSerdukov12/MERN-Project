@@ -1,6 +1,7 @@
 import React from 'react'
 import {useState,useEffect} from 'react'
 import Axios from 'axios'
+import axios from 'axios'
 
 export function MyPayment() {
   const [arrayOfMachines, setArrayOfMachines] = useState([])
@@ -13,17 +14,19 @@ export function MyPayment() {
   const [cvc, setCVC] = useState(user.payment[2])
   
     function checkIfitemsValid(){
+      Axios.post('http://localhost:5001/checkitemsfromwishlist', { email:user.email}).then(res => {
+        console.log(res.data)
+        if(res.data=='All Product available') {
+          addToOrdersUser()
+        }
+        else{
+          alert(res.data)
+          //// move to home !
+        }
+      }).catch(err => {
+        console.log(err);
+      })      
 
-      console.log('im here')
-      for(var i=0 ; i<user.wishlist.length ; ++i){
-        if(user.wishlist[i].quantity<=0)
-        alert('the item '+user.wishlist[0].brand+' '+user.wishlist[0].model + 'isnt on stock')
-        /////stop
-        break
-      }
-      //// if all items are valid lets go to place it on oreders on urser db
-      console.log('all items on stock');
-      addToOrdersUser()
     }
     function addToOrdersUser(){
 

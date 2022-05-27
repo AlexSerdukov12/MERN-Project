@@ -28,6 +28,10 @@ export function Refrigerators(props) {
       }).then(res => {
         console.log('Received response from back - response below');
         console.log(res.data);
+        var update=sessionStorage.getItem('user')
+        update=JSON.parse(update)
+        update.wishlist.push(item)
+        sessionStorage.setItem('user',JSON.stringify(update))
         
       }).catch(err => {
         console.log(err);
@@ -47,6 +51,10 @@ export function Refrigerators(props) {
       }).then(res => {
         console.log('Received response from back - response below');
         console.log(res.data);
+        var update=sessionStorage.getItem('user')
+        update=JSON.parse(update)
+        update.cart.push(item)
+        sessionStorage.setItem('user',JSON.stringify(update))
         
       }).catch(err => {
         console.log(err);

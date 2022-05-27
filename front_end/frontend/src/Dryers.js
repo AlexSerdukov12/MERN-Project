@@ -20,7 +20,6 @@ export function Dryers(props) {
         alert('Please login to perform member operations!')
       } else {
 
-      
       console.log('Sending request to backend-dryers')
       Axios.post('http://localhost:5001/addtocart', {
         item: item,
@@ -28,23 +27,29 @@ export function Dryers(props) {
       }).then(res => {
         console.log('Received response from back - response below');
         console.log(res.data);
+        var update=sessionStorage.getItem('user')
+        update=JSON.parse(update)
+        update.cart.push(item)
+        sessionStorage.setItem('user',JSON.stringify(update))
         
       }).catch(err => {
         console.log(err);
       })
     }
-    }
-    function addToWishlist(item) {
-      if(!props.user) {
-        alert('Please login to perform member operations!')
-      } else {
-
-      
+  }
+  function addToWishlist(item) {
+    if(!props.user) {
+      alert('Please login to perform member operations!')
+    } else {
       console.log('Sending request to backend-dryers')
       Axios.post('http://localhost:5001/addtowishlist', {
         item: item,
         user: props.user
       }).then(res => {
+        var update=sessionStorage.getItem('user')
+        update=JSON.parse(update)
+        update.wishlist.push(item)
+        sessionStorage.setItem('user',JSON.stringify(update))
         console.log('Received response from back - response below');
         console.log(res.data);
         

@@ -1,20 +1,13 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = "mongodb+srv://db_user:BPSMz7H0PUlVUz7G@cluster0.ldkqi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-
-
-
 
 function searchLaundryMachines(object) {
     async function run(object) {
         try {
           await client.connect();
           var collection = client.db("laundrymachines").collection("laundrymachines_c")
-          // Query for a movie that has the title 'The Room'
-    
-    
           const machines = await collection.find(object);
-          // since this method returns the matched document, not a cursor, print it directly
           return machines.toArray()
         }
         catch(err) {
@@ -31,13 +24,8 @@ function searchDryers(object) {
   async function run(object) {
       try {
         await client.connect();
-        //console.log('sucess to log in')
         var collection = client.db("dryers").collection("dryers_c")
-        // Query for a movie that has the title 'The Room'
-  
-  
         const dryers = await collection.find(object);
-        // since this method returns the matched document, not a cursor, print it directly
         return dryers.toArray()
       }
       catch(err) {
@@ -51,18 +39,12 @@ function searchDryers(object) {
 }
 exports.searchDryers = searchDryers;
 
-
 function searchRefrigerators(object) {
   async function run(object) {
       try {
         await client.connect();
-        //console.log("im inside mongo db search for getrefrigerators")
         var collection = client.db("refrigerators").collection("refrigerators_c")
-        // Query for a movie that has the title 'The Room'
-  
-  
         const refrigerators = await collection.find(object);
-        // since this method returns the matched document, not a cursor, print it directly
         return refrigerators.toArray()
       }
       catch(err) {
@@ -75,18 +57,12 @@ function searchRefrigerators(object) {
 }
 exports.searchRefrigerators = searchRefrigerators;
 
-
 function searchDishwashers(object) {
   async function run(object) {
       try {
         await client.connect();
-        //console.log("im inside mongo db search for dishwashers")
         var collection = client.db("dishwashers").collection("dishwashers_c")
-        // Query for a movie that has the title 'The Room'
-  
-  
         const dishwashers = await collection.find(object);
-        // since this method returns the matched document, not a cursor, print it directly
         return dishwashers.toArray()
       }
       catch(err) {
@@ -103,13 +79,8 @@ function searchTelevisions(object) {
   async function run(object) {
       try {
         await client.connect();
-        //console.log("im inside mongo db search for televisions")
         var collection = client.db("televisions").collection("televisions_c")
-        // Query for a movie that has the title 'The Room'
-  
-  
-        const televisions = await collection.find(object);
-        // since this method returns the matched document, not a cursor, print it directly
+        const televisions = await collection.find(object)
         return televisions.toArray()
       }
       catch(err) {
@@ -126,13 +97,8 @@ function searchStoves(object) {
   async function run(object) {
       try {
         await client.connect();
-        //console.log("im inside mongo db search for televisions")
         var collection = client.db("stoves").collection("stoves_c")
-        // Query for a movie that has the title 'The Room'
-  
-  
         const stoves = await collection.find(object);
-        // since this method returns the matched document, not a cursor, print it directly
         return stoves.toArray()
       }
       catch(err) {
@@ -149,13 +115,8 @@ function searchAirconditioners(object) {
   async function run(object) {
       try {
         await client.connect();
-        //console.log("im inside mongo db search for televisions")
         var collection = client.db("airconditioners").collection("airconditioners_c")
-        // Query for a movie that has the title 'The Room'
-  
-  
         const airconditioners = await collection.find(object);
-        // since this method returns the matched document, not a cursor, print it directly
         return airconditioners.toArray()
       }
       catch(err) {
@@ -172,13 +133,8 @@ function searchOvens(object) {
   async function run(object) {
       try {
         await client.connect();
-        //console.log("im inside mongo db search for ovens")
         var collection = client.db("ovens").collection("ovens_c")
-        // Query for a movie that has the title 'The Room'
-  
-  
         const ovens = await collection.find(object);
-        // since this method returns the matched document, not a cursor, print it directly
         return ovens.toArray()
       }
       catch(err) {
@@ -191,19 +147,12 @@ function searchOvens(object) {
 }
 exports.searchOvens = searchOvens;
 
-
-
 function searchStoves(object) {
   async function run(object) {
       try {
         await client.connect();
-        //console.log("im inside mongo db search for televisions")
         var collection = client.db("stoves").collection("stoves_c")
-        // Query for a movie that has the title 'The Room'
-  
-  
         const stoves = await collection.find(object);
-        // since this method returns the matched document, not a cursor, print it directly
         return stoves.toArray()
       }
       catch(err) {
@@ -220,11 +169,8 @@ function searchAirconditioners(object) {
   async function run(object) {
       try {
         await client.connect();
-        //console.log("im inside mongo db search for televisions")
         var collection = client.db("airconditioners").collection("airconditioners_c")
-        // Query for a movie that has the title 'The Room'
         const airconditioners = await collection.find(object);
-        // since this method returns the matched document, not a cursor, print it directly
         return airconditioners.toArray()
       }
       catch(err) {
@@ -241,8 +187,6 @@ function searchByString(object) {
   async function run(object) {
       try {
         await client.connect();
-        //console.log('im searching on db for : ')
-        //console.log(object)
         var collection1 = client.db("airconditioners").collection("airconditioners_c")
         var collection2 = client.db("dishwashers").collection("dishwashers_c")
         var collection3 = client.db("laundrymachines").collection("laundrymachines_c")
@@ -251,8 +195,6 @@ function searchByString(object) {
         var collection6 = client.db("stoves").collection("stoves_c")
         var collection7 = client.db("televisions").collection("televisions_c")
         var collection8 = client.db("dryers").collection("dryers_c")
-        sum_of_collection=collection1+collection2
-        // Query for a movie that has the title 'The Room'
         const one = await collection1.find({brand : object}).toArray()
         const two = await collection2.find({brand : object}).toArray()
         const three = await collection3.find({brand : object}).toArray()
@@ -261,7 +203,6 @@ function searchByString(object) {
         const six = await collection6.find({brand : object}).toArray()
         const seven = await collection7.find({brand : object}).toArray()
         const eight = await collection8.find({brand : object}).toArray()
-        //////////////////////////////////////////////////////////////////////////////
         const temp=[];
         temp.push(one)
         temp.push(two)
@@ -275,11 +216,8 @@ function searchByString(object) {
         for( i=0;i<8;i++)
         {
           for( j=0;j<(temp[i].length);j++)
-
-             found.push(temp[i][j]);
-               
+             found.push(temp[i][j]);   
         }
-        // since this method returns the matched document, not a cursor, print it directly
         return found
       }
       catch(err) {
@@ -297,13 +235,7 @@ function updateUser(data) {
     try {
       await client.connect();
       var collection1 = client.db("users").collection("users_c")
-
-      // Query for a movie that has the title 'The Room'
-      const one = await collection1.updateOne({email: data.user.email} ,   { $push: { wishlist: data.item } }
-        , { upsert: true })
-
-      //console.log('i added ____________________________');
-      // since this method returns the matched document, not a cursor, print it directly
+      const one = await collection1.updateOne({email: data.user.email} ,   { $push: { wishlist: data.item } }, { upsert: true })
     }
     catch(err) {
      return err
@@ -315,33 +247,18 @@ function updateUser(data) {
 }
 exports.updateUser = updateUser
 
-
 function searchUser(e_string,pw_string) {
   async function run(e_string,pw_string) {
       try {
         await client.connect();
-        //console.log('im searching on db for : ')
-        //console.log(e_string,pw_string)
         var collection1 = client.db("users").collection("users_c")
-
-        // Query for a movie that has the title 'The Room'
         const one = await collection1.findOne({email:e_string , password: pw_string})
-
-        //console.log('here what i found')
-        //console.log('******************')
-
         if(one ){
-          //console.log('******************')
-          //console.log(one)
-          //console.log('******************')
-          //console.log('login success')
             return one
           }
         else {
-          //console.log('login failed')
           return null
         }
-        // since this method returns the matched document, not a cursor, print it directly
       }
       catch(err) {
        return err
@@ -358,18 +275,12 @@ function registerUser(e_string,pw_string) {
   async function run(e_string,pw_string) {
       try {
         await client.connect();
-        //console.log('im searching on db for : ')
-        //console.log(e_string,pw_string)
         var collection1 = client.db("users").collection("users_c")
-
-        // Query for a movie that has the title 'The Room'
-        const one = await collection1.findOne({email:e_string})
+          const one = await collection1.findOne({email:e_string})
         if(one == null)  ////email hasnt found -> countine with register
         {
           if(pw_string.length <8) return 'password must be at least 8 chars'
           else{
-            
-            //console.log('im trying')
             collection1.insertOne({
               email : e_string,
               password : pw_string,
@@ -383,8 +294,6 @@ function registerUser(e_string,pw_string) {
                 Array[4]="No.Street",
                 Array[5]="No.Apartment",
                 Array[6]="Phone Number"
-
-            
               ],
                payment:[
                 Array[0]="Card Number",
@@ -392,7 +301,6 @@ function registerUser(e_string,pw_string) {
                 Array[2]="CVC"
               ], 
               orders:[]
-
             })
             return true
           }
@@ -401,7 +309,6 @@ function registerUser(e_string,pw_string) {
         {
           return 'email has exist '
         }
-        // since this method returns the matched document, not a cursor, print it directly
       }
       catch(err) {
        return err
@@ -413,17 +320,13 @@ function registerUser(e_string,pw_string) {
 }
 exports.registerUser = registerUser
 
-
 function getwishList(data) {
   async function run() {
     try {
       await client.connect();
       var collection1 = client.db("users").collection("users_c")
-
-      // Query for a movie that has the title 'The Room'
       const one = await collection1.findOne({email: data.user.email} )
       return one
-      // since this method returns the matched document, not a cursor, print it directly
     }
     catch(err) {
      return err
@@ -435,18 +338,13 @@ function getwishList(data) {
 }
 exports.getwishList = getwishList;
 
-
 function getCart(data) {
   async function run() {
     try {
       await client.connect();
       var collection1 = client.db("users").collection("users_c")
-
-      // Query for a movie that has the title 'The Room'
       const one = await collection1.findOne({email: data.user.email} )
-      //console.log("im inside cart **************************");
       return one
-      // since this method returns the matched document, not a cursor, print it directly
     }
     catch(err) {
      return err
@@ -458,19 +356,12 @@ function getCart(data) {
 }
 exports.getCart = getCart;
 
-
 function updateUserCart(data) {
   async function run() {
     try {
       await client.connect();
       var collection1 = client.db("users").collection("users_c")
-
-      // Query for a movie that has the title 'The Room'
-      const one = await collection1.updateOne({email: data.user.email} ,   { $push: { cart: data.item } }
-        , { upsert: true })
-
-      //console.log('i added item on cart');
-      // since this method returns the matched document, not a cursor, print it directly
+      const one = await collection1.updateOne({email: data.user.email} ,   { $push: { cart: data.item } }, { upsert: true })
     }
     catch(err) {
      return err
@@ -488,13 +379,7 @@ function removeItemFromeUserCart(data) {
     try {
       await client.connect();
       var collection1 = client.db("users").collection("users_c")
-
-      // Query for a movie that has the title 'The Room'
-      console
-
-        const one = await collection1.updateOne({email: data.user.email} ,   { $pull: { cart: data.item } })
-
-      //console.log('i removed item on cart');
+      const one = await collection1.updateOne({email: data.user.email} ,   { $pull: { cart: data.item } })
       return true
     }
     catch(err) {
@@ -507,18 +392,13 @@ function removeItemFromeUserCart(data) {
 }
 exports.removeItemFromeUserCart = removeItemFromeUserCart
 
-
 function removeItemFromeUserwishlist(data) {
   const remove=data.item
   async function run() {
     try {
       await client.connect();
       var collection1 = client.db("users").collection("users_c")
-
-      // Query for a movie that as the title 'The Room'
         const one = await collection1.updateOne({email: data.user.email} ,   { $pull: { wishlist: data.item } })
-
-      //console.log('i removed item on wishlist');
       return true
     }
     catch(err) {
@@ -532,33 +412,18 @@ function removeItemFromeUserwishlist(data) {
 exports.removeItemFromeUserwishlist = removeItemFromeUserwishlist
 
 
-
 function returnUser(data) {
   async function run(data) {
       try {
         await client.connect();
-        //console.log('im searching on db for : ')
-        //console.log(data)
         var collection1 = client.db("users").collection("users_c")
-
-        // Query for a movie that has the title 'The Room'
         const one = await collection1.findOne(data)
-
-        //console.log('here what i found')
-        //console.log('******************')
-
         if(one ){
-          //console.log('******************')
-          //console.log(one)
-          //console.log('******************')
-          //console.log('search user success')
             return one
           }
         else {
-          //console.log('fail search user ')
           return null
         }
-        // since this method returns the matched document, not a cursor, print it directly
       }
       catch(err) {
        return err
@@ -570,18 +435,75 @@ function returnUser(data) {
 }
 exports.returnUser = returnUser
 
-
-
 function addToOrdersFromWishList(data) {
   async function run() {
     try {
       await client.connect()
-      var collection1 = client.db("users").collection("users_c")
+      //  connect to all DB's products
+      const airconditioners = client.db("airconditioners").collection("airconditioners_c")
+      const dishwashers = client.db("dishwashers").collection("dishwashers_c")
+      const dryers = client.db("dryers").collection("dryers_c")
+      const laundrymachines = client.db("laundrymachines").collection("laundrymachines_c")
+      const ovens = client.db("ovens").collection("ovens_c")
+      const refrigerators = client.db("refrigerators").collection("refrigerators_c")
+      const stoves = client.db("stoves").collection("stoves_c")
+      const televisions = client.db("televisions").collection("televisions_c")
+      const collection1 = client.db("users").collection("users_c")
+      ////// move all items from wishlist to orders ///////
       const one = await collection1.updateOne({email: data.user.email},{ $push: { orders :{$each: data.user.wishlist}} })
+      ////// update all DB's quantity of items from wishlist /////
+      const updateItems= data.user.wishlist
+      //  search each item on DB's by catalog and update quantity 
+      for(var i=0 ; i < updateItems.length; ++i ){
+        switch(updateItems[i].catalog) {
+          case 'airconditioners':
+            await airconditioners.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+
+          case 'dishwashers':
+  
+            await dishwashers.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+
+          case 'dryers':
+            dryers.findOneAndUpdate({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+
+          case 'laundrymachines':
+            await laundrymachines.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+
+          case 'ovens':
+            await ovens.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+
+          case 'refrigerators':
+            await refrigerators.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+
+          case 'stoves':
+            await stoves.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+            
+          case 'televisions':
+            await televisions.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+              
+          default:
+            // nothing to do
+        }
+       }
+      
+      /////////// after update quantity send to Admin items
+
+      // console.log('im after update')
+
+
       ///////////remove all wishlist items
-     // let updateQuantityOfITems=data.user.wishlist 
-     // console.log(updateQuantityOfITems)     
-     // await collection1.updateOne({email: data.user.email},{ $pull: { wishlist } })
+
+      console.log('remvoe wishlist')
+      await collection1.updateMany({email: data.user.email}, { $set : {wishlist: [] }} , {multi:true});
+
 
 
       return ' i added'
@@ -595,3 +517,85 @@ function addToOrdersFromWishList(data) {
   }) 
 }
 exports.addToOrdersFromWishList = addToOrdersFromWishList
+
+
+function checkItemsQuantity(email_data) {
+  async function run() {
+    try {
+      await client.connect();
+      const airconditioners = client.db("airconditioners").collection("airconditioners_c")
+      const dishwashers = client.db("dishwashers").collection("dishwashers_c")
+      const dryers = client.db("dryers").collection("dryers_c")
+      const laundrymachines = client.db("laundrymachines").collection("laundrymachines_c")
+      const ovens = client.db("ovens").collection("ovens_c")
+      const refrigerators = client.db("refrigerators").collection("refrigerators_c")
+      const stoves = client.db("stoves").collection("stoves_c")
+      const televisions = client.db("televisions").collection("televisions_c")
+
+      const users = client.db("users").collection("users_c")
+      const USER = await users.findOne({email:email_data.email})
+
+
+      console.log('ItemsToCheck')
+      console.log(USER.wishlist.length)
+
+      //////////////////check quantity of items
+      for(var i=0 ; i < USER.wishlist.length; ++i ){
+
+        switch(USER.wishlist[i].catalog) {
+          case 'airconditioners':
+            const item=await airconditioners.findOne({_id: ObjectId(USER.wishlist[i]._id)})
+            if(item.quantity<=0) return USER.wishlist[i].model +' ' +USER.wishlist[i].brand+' Product not available'
+
+            break;
+
+          case 'dishwashers':
+            const item1=await dishwashers.findOne({_id: ObjectId(USER.wishlist[i]._id)})
+            if(item1.quantity<=0) return USER.wishlist[i].model +' ' +USER.wishlist[i].brand+' Product not available'
+            break;
+
+          case 'dryers':
+            const item2=await dryers.findOne({_id: ObjectId(USER.wishlist[i]._id)})
+            if(item2.quantity<=0) return USER.wishlist[i].model +' ' +USER.wishlist[i].brand+' Product not available'
+            break;
+
+          case 'laundrymachines':
+            const item3=await laundrymachines.findOne({_id: ObjectId(USER.wishlist[i]._id)})
+            if(item3.quantity<=0) return USER.wishlist[i].model +' ' +USER.wishlist[i].brand+' Product not available'
+            break;
+
+          case 'ovens':
+            const item4=await ovens.findOne({_id: ObjectId(USER.wishlist[i]._id)})
+            if(item4.quantity<=0) return USER.wishlist[i].model +' ' +USER.wishlist[i].brand+' Product not available'
+            break;
+
+          case 'refrigerators':
+            const item5=await refrigerators.findOne({_id: ObjectId(USER.wishlist[i]._id)})
+            if(item5.quantity<=0) return USER.wishlist[i].model +' ' +USER.wishlist[i].brand+' Product not available'
+            break;
+
+          case 'stoves':
+            const item6= await stoves.findOne({_id: ObjectId(USER.wishlist[i]._id)})
+            if(item6.quantity<=0) return USER.wishlist[i].model +' ' +USER.wishlist[i].brand+' Product not available'
+            break;
+            
+          case 'televisions':
+            const item7=await televisions.findOne({_id: ObjectId(USER.wishlist[i]._id)})
+            if(item7.quantity<=0) return USER.wishlist[i].model +' ' +USER.wishlist[i].brand+' Product not available'
+            break;
+              
+          default:
+            // nothing to do
+        }
+      }
+    return 'All Product available'
+  }
+    catch(err) {
+     return err
+    }
+  }
+  return new Promise((resolve,reject) => {
+    resolve(run())
+  }) 
+}
+exports.checkItemsQuantity = checkItemsQuantity
