@@ -23,8 +23,6 @@ export function LaundryMachines(props) {
       if(!props.user) {
         alert('Please login to perform member operations!')
       } else {
-
-      
       console.log('Sending request to backend-dryers')
       Axios.post('http://localhost:5001/addtowishlist', {
         item: item,
@@ -32,6 +30,10 @@ export function LaundryMachines(props) {
       }).then(res => {
         console.log('Received response from back - response below');
         console.log(res.data);
+        var update=sessionStorage.getItem('user')
+        update=JSON.parse(update)
+        update.wishlist.push(item)
+        sessionStorage.setItem('user',JSON.stringify(update))
         
       }).catch(err => {
         console.log(err);
@@ -51,6 +53,10 @@ export function LaundryMachines(props) {
       }).then(res => {
         console.log('Received response from back - response below');
         console.log(res.data);
+        var update=sessionStorage.getItem('user')
+        update=JSON.parse(update)
+        update.cart.push(item)
+        sessionStorage.setItem('user',JSON.stringify(update))
         
       }).catch(err => {
         console.log(err);

@@ -32,7 +32,14 @@ export function WishList(props) {
       }).then(res => {
         console.log('Received response from back - response below');
         console.log(res.data);
-        getWishList()
+
+        var update=sessionStorage.getItem('user')
+        update=JSON.parse(update)
+        var newArray = update.wishlist.filter(i => i._id !== item._id)
+        console.log(newArray);
+            update.wishlist = newArray
+            sessionStorage.setItem('user',JSON.stringify(update))
+            getWishList()
       }).catch(err => {
         console.log(err);
       })
