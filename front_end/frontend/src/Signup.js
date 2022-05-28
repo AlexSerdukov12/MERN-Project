@@ -1,13 +1,30 @@
 import React from 'react'
 import './Signin.css'
+import Popup from './AdminPopup'
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Axios from 'axios'
+
+
 export function Signup(props) {
     const [Email, setEmaildData ]= useState('')
     const [Password, setPasswordData] = useState('')
+    const [AdminPassword,setAdminPasswordData]=useState('')
+    const [isAdmin , setAdmin] = useState(false)
     const history = useNavigate()
+    const [isOpen, setIsOpen] = useState(false);
+ 
+    const togglePopup = () => {
+    setIsOpen(!isOpen);
+    }
+
+    function checkIfAdmin()
+    {
+      if(AdminPassword=="admin123")
+        setAdmin(true);
+    }
+
 
     function passVariablesToBackend () {
       console.log('Sending request to backend')
@@ -39,9 +56,19 @@ export function Signup(props) {
       <input value={Password} onChange={event => {setPasswordData(event.target.value)}} type="password" placeholder='Password'></input>
     
       <button onClick={() => {passVariablesToBackend()}}>Register</button>
-      <div id='test' >
-        
-      </div>
+      <input
+        type="button"
+        value="Admin? Click here"
+        onClick={togglePopup}
+      />
+      {isOpen && <Popup
+        content={<>
+          <input value={AdminPassword} onChange={event => {setAdminPasswordData(event.target.value)}} type="password" placeholder='Company Administrator Password:'></input>
+            <button onClick={() => {checkIfAdmin()}}>Authorize</button>
+        </>}
+        handleClose={togglePopup}
+      />}
+
     </div>
 
   );
