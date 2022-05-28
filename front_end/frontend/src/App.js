@@ -9,9 +9,11 @@ import { Signin } from './Signin';
 import { Signup } from './Signup';
 import {MyAddress} from './Address'
 import { MyPayment } from './payment';
+import {MyAddressS} from './Adresscart'
+import {MyPaymentT} from './paymentT'
 
 
-function App() {
+function App() {  
 const [user,setuser]=useState(null)
   return (
 
@@ -22,6 +24,9 @@ const [user,setuser]=useState(null)
         <Route path='/signup' element={<Signup user={user} setuser={setuser} />}  />
         <Route path='/addAdress' element={<MyAddress user={user} setuser={setuser} />}  />
         <Route path='/addAdress/payment' element={<MyPayment user={user} setuser={setuser} />}  />
+
+        <Route path='/addAdress1' element={<MyAddressS user={user} setuser={setuser} />}  />
+        <Route path='/addAdress1/payment1' element={<MyPaymentT user={user} setuser={setuser} />}  />
 
 
      </Routes>

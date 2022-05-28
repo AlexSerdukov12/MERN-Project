@@ -19,8 +19,6 @@ export function Airconditioners(props) {
       if(!props.user) {
         alert('Please login to perform member operations!')
       } else {
-
-      
       console.log('Sending request to backend-dryers')
       Axios.post('http://localhost:5001/addtowishlist', {
         item: item,
@@ -43,8 +41,6 @@ export function Airconditioners(props) {
       if(!props.user) {
         alert('Please login to perform member operations!')
       } else {
-
-      
       console.log('Sending request to backend-dryers')
       Axios.post('http://localhost:5001/addtocart', {
         item: item,
