@@ -4,7 +4,7 @@ import { SearchField } from './SearchField'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { LaundryMachines } from './laundryMachines'
 import { Promotions } from './Promotions';
-import { Dryers } from './dryers';
+import { Dryers } from './Dryers';
 import { Refrigerators } from './refrigerators';
 import { Dishwashers } from './dishwashers';
 import { Televisions } from './televisions';
@@ -15,6 +15,7 @@ import { useParams,useNavigate } from 'react-router-dom';
 import { WishList } from './wishList';
 import { Cart } from './cart';
 import {MyProfile} from './myprofile'
+
 export function Homepage(props) {
   const [viewPage, setViewPage] = useState('home')
   const {page}=useParams()

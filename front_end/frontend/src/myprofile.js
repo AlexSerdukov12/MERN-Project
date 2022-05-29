@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Axios from 'axios'
+import "./AdminOptions"
+import { chooseOption } from './AdminOptions'
 export function MyProfile(props) {
   const [email, setEmail] = useState([''])
   const [password, setPassword] = useState([''])
@@ -70,6 +72,11 @@ export function MyProfile(props) {
           <h1>Orders</h1>
           <RenderOrders/>
       </div> 
+      <div>
+
+      <button onClick={() => {chooseOption()}}>Admin options</button>
+
+      </div>
       </div>
  
 
