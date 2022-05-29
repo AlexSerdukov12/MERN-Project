@@ -39,14 +39,12 @@ export function Signup(props) {
         console.log('Received response from back - response below');
         console.log(res.data);
         
-        var element = document.getElementById('test')
-        element.innerText = res.data
         if(res.data==true) {
           props.setuser(res.data)
           history('/')
         }
                  else {
-          element.style.background = 'red'
+                 alert('email has exist')
         }
   
       }).catch(err => {
