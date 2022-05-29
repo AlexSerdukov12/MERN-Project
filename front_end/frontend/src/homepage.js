@@ -15,6 +15,7 @@ import { useParams,useNavigate } from 'react-router-dom';
 import { WishList } from './wishList';
 import { Cart } from './cart';
 import {MyProfile} from './myprofile'
+
 export function Homepage(props) {
   const [viewPage, setViewPage] = useState('home')
   const {page}=useParams()
