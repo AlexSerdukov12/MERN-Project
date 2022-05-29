@@ -13,7 +13,7 @@ export function Signup(props) {
     const [AdminPassword,setAdminPasswordData]=useState('')
     const [isAdmin , setAdmin] = useState(false)
     const history = useNavigate()
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
  
     const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -22,7 +22,11 @@ export function Signup(props) {
     function checkIfAdmin()
     {
       if(AdminPassword=="admin123")
+      {
         setAdmin(true);
+        return true;
+      }
+      else return false;
     }
 
 
@@ -64,7 +68,7 @@ export function Signup(props) {
       {isOpen && <Popup
         content={<>
           <input value={AdminPassword} onChange={event => {setAdminPasswordData(event.target.value)}} type="password" placeholder='Company Administrator Password:'></input>
-            <button onClick={() => {checkIfAdmin()}}>Authorize</button>
+          <button onClick={() => {checkIfAdmin()}}>Authorize</button>
         </>}
         handleClose={togglePopup}
       />}

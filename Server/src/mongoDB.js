@@ -301,6 +301,8 @@ function registerUser(e_string,pw_string) {
                 Array[2]="CVC"
               ], 
               orders:[]
+              ,
+              isAdmin : false
             })
             return true
           }
