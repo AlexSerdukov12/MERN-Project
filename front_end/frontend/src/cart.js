@@ -67,8 +67,9 @@ export function Cart(props) {
     }
     return (
         <div className="App">
-          <button >buy your cart</button>
-
+              <form action="/addAdress1">
+                  <input type="submit" value="Buy all Cart" />
+              </form>
               <RenderCart />
     </div>
 

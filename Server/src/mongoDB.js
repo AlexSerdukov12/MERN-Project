@@ -417,18 +417,12 @@ exports.removeItemFromeUserwishlist = removeItemFromeUserwishlist
 function returnUser(data) {
   async function run() {
       try {
-        console.log('im on returnUser')
-        console.log(data.data)
-
         await client.connect();
-        var collection1 = client.db("users").collection("users_c")
-        const one = await collection1.findOne({email:data.data})
-        if(one ){
-            return one
-          }
-        else {
-          return null
-        }
+        const collection1 = client.db("users").collection("users_c")
+        const one = await collection1.findOne({email:data.email})
+      if(one) return one 
+        else return 'bad'
+       
       }
       catch(err) {
        return err
@@ -604,3 +598,232 @@ function checkItemsQuantity(email_data) {
   }) 
 }
 exports.checkItemsQuantity = checkItemsQuantity
+
+
+function checkItemsQuantityCart(email_data) {
+  async function run() {
+    try {
+      await client.connect();
+      const airconditioners = client.db("airconditioners").collection("airconditioners_c")
+      const dishwashers = client.db("dishwashers").collection("dishwashers_c")
+      const dryers = client.db("dryers").collection("dryers_c")
+      const laundrymachines = client.db("laundrymachines").collection("laundrymachines_c")
+      const ovens = client.db("ovens").collection("ovens_c")
+      const refrigerators = client.db("refrigerators").collection("refrigerators_c")
+      const stoves = client.db("stoves").collection("stoves_c")
+      const televisions = client.db("televisions").collection("televisions_c")
+
+      const users = client.db("users").collection("users_c")
+      const USER = await users.findOne({email:email_data.email})
+
+
+      console.log('ItemsToCheck')
+      console.log(USER.cart.length)
+
+      //////////////////check quantity of items
+      for(var i=0 ; i < USER.cart.length; ++i ){
+
+        switch(USER.cart[i].catalog) {
+          case 'airconditioners':
+            const item=await airconditioners.findOne({_id: ObjectId(USER.cart[i]._id)})
+            if(item.quantity<=0) return USER.cart[i].model +' ' +USER.cart[i].brand+' Product not available'
+
+            break;
+
+          case 'dishwashers':
+            const item1=await dishwashers.findOne({_id: ObjectId(USER.cart[i]._id)})
+            if(item1.quantity<=0) return USER.cart[i].model +' ' +USER.cart[i].brand+' Product not available'
+            break;
+
+          case 'dryers':
+            const item2=await dryers.findOne({_id: ObjectId(USER.cart[i]._id)})
+            if(item2.quantity<=0) return USER.cart[i].model +' ' +USER.cart[i].brand+' Product not available'
+            break;
+
+          case 'laundrymachines':
+            const item3=await laundrymachines.findOne({_id: ObjectId(USER.cart[i]._id)})
+            if(item3.quantity<=0) return USER.cart[i].model +' ' +USER.cart[i].brand+' Product not available'
+            break;
+
+          case 'ovens':
+            const item4=await ovens.findOne({_id: ObjectId(USER.cart[i]._id)})
+            if(item4.quantity<=0) return USER.cart[i].model +' ' +USER.cart[i].brand+' Product not available'
+            break;
+
+          case 'refrigerators':
+            const item5=await refrigerators.findOne({_id: ObjectId(USER.cart[i]._id)})
+            if(item5.quantity<=0) return USER.cart[i].model +' ' +USER.cart[i].brand+' Product not available'
+            break;
+
+          case 'stoves':
+            const item6= await stoves.findOne({_id: ObjectId(USER.cart[i]._id)})
+            if(item6.quantity<=0) return USER.cart[i].model +' ' +USER.cart[i].brand+' Product not available'
+            break;
+            
+          case 'televisions':
+            const item7=await televisions.findOne({_id: ObjectId(USER.cart[i]._id)})
+            if(item7.quantity<=0) return USER.cart[i].model +' ' +USER.cart[i].brand+' Product not available'
+            break;
+              
+          default:
+            // nothing to do
+        }
+      }
+    return 'All Product available'
+  }
+    catch(err) {
+     return err
+    }
+  }
+  return new Promise((resolve,reject) => {
+    resolve(run())
+  }) 
+}
+exports.checkItemsQuantityCart = checkItemsQuantityCart
+
+
+
+function addToOrdersFromCart(data) {
+  async function run() {
+    try {
+      await client.connect()
+      //  connect to all DB's products
+      const airconditioners = client.db("airconditioners").collection("airconditioners_c")
+      const dishwashers = client.db("dishwashers").collection("dishwashers_c")
+      const dryers = client.db("dryers").collection("dryers_c")
+      const laundrymachines = client.db("laundrymachines").collection("laundrymachines_c")
+      const ovens = client.db("ovens").collection("ovens_c")
+      const refrigerators = client.db("refrigerators").collection("refrigerators_c")
+      const stoves = client.db("stoves").collection("stoves_c")
+      const televisions = client.db("televisions").collection("televisions_c")
+      const collection1 = client.db("users").collection("users_c")
+      ////// move all items from wishlist to orders ///////
+      const one = await collection1.updateOne({email: data.user.email},{ $push: { orders :{$each: data.user.cart}} })
+      ////// update all DB's quantity of items from cart /////
+      const updateItems= data.user.cart
+      //  search each item on DB's by catalog and update quantity 
+      for(var i=0 ; i < updateItems.length; ++i ){
+        switch(updateItems[i].catalog) {
+          case 'airconditioners':
+            await airconditioners.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+
+          case 'dishwashers':
+  
+            await dishwashers.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+
+          case 'dryers':
+            dryers.findOneAndUpdate({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+
+          case 'laundrymachines':
+            await laundrymachines.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+
+          case 'ovens':
+            await ovens.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+
+          case 'refrigerators':
+            await refrigerators.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+
+          case 'stoves':
+            await stoves.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+            
+          case 'televisions':
+            await televisions.updateOne({_id: ObjectId(updateItems[i]._id)}, { $inc: { quantity: -1 } });
+            break;
+              
+          default:
+            // nothing to do
+        }
+       }
+      
+      /////////// after update quantity send to Admin items
+
+      // console.log('im after update')
+
+
+      ///////////remove all cart items
+
+      console.log('remvoe cart')
+      await collection1.updateMany({email: data.user.email}, { $set : {cart: [] }} , {multi:true});
+
+
+
+      return ' i added'
+    }
+    catch(err) {
+     return err
+    }
+  }
+  return new Promise((resolve,reject) => {
+    resolve(run())
+  }) 
+}
+exports.addToOrdersFromCart = addToOrdersFromCart
+
+
+function EditAdressUser(data) {
+   async function run() {
+    try {
+    await client.connect();
+    const collection1 = client.db("users").collection("users_c")
+    collection1.updateMany({
+      "email": data.email.toString()
+    },
+    {
+      $set: {
+        "addres.0": data.country,
+        "addres.1": data.city,
+        "addres.2": data.zip,
+        "addres.3": data.street,
+        "addres.4": data.nostreet,
+        "addres.5": data.noaprtment,
+        "addres.6": data.phonenumber
+      }
+    })
+    return true
+    }
+    catch(err) {
+     return err
+    }
+  }
+  return new Promise((resolve,reject) => {
+    resolve(run())
+  }) 
+}
+exports.EditAdressUser = EditAdressUser
+
+
+
+
+function EditPayment(data) {
+  async function run() {
+   try {
+   await client.connect();
+   const collection1 = client.db("users").collection("users_c")
+   collection1.updateMany({
+     "email": data.email.toString()
+   },
+   {
+     $set: {
+       "payment.0": data.card_number,
+       "payment.1": data.exp_date,
+       "payment.2": data.cvc,
+     }
+   })
+   return true
+   }
+   catch(err) {
+    return err
+   }
+ }
+ return new Promise((resolve,reject) => {
+   resolve(run())
+ }) 
+}
+exports.EditPayment = EditPayment

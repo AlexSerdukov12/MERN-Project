@@ -8,7 +8,7 @@ const {searchLaundryMachines, searchDryers,
   searchRefrigerators,searchDishwashers,searchTelevisions,
   searchStoves,searchAirconditioners,searchOvens,searchByString,
   searchUser,registerUser, updateUser,getwishList,updateUserCart,getCart,removeItemFromeUserCart,removeItemFromeUserwishlist,returnUser,
-  addToOrdersFromWishList,checkItemsQuantity} = require('./mongoDB');
+  addToOrdersFromWishList,checkItemsQuantity,checkItemsQuantityCart,addToOrdersFromCart,EditAdressUser,EditPayment} = require('./mongoDB');
 const res = require('express/lib/response');
 
 // create application/json parser
@@ -158,14 +158,14 @@ app.post('/removefromwihlist', jsonParser, (req, res) => {
   })
 })
 
-app.post('/getuser', jsonParser, (req, res) => {
+ app.post('/getuser', jsonParser, (req, res) => {
   returnUser(req.body).then((sendToFront) => {
     res.send(sendToFront)
   }).catch((sendToFrontError) => {
     console.log(sendToFrontError)
   })
 })
-
+ 
 
 app.post('/addToOrdersfromwishlist', jsonParser, (req, res) => {
   addToOrdersFromWishList(req.body).then((sendToFront) => {
@@ -185,12 +185,51 @@ app.post('/checkitemsfromwishlist', jsonParser, (req, res) => {
 })
 
 app.post('/getuserorders', jsonParser, (req, res) => {
-  console.log('im on getuserorders')
   returnUser(req.body).then((sendToFront) => {
     res.send(sendToFront)
   }).catch((sendToFrontError) => {
     console.log(sendToFrontError)
   })
+})
+
+////////////////cart
+app.post('/checkitemsfromcart', jsonParser, (req, res) => {
+  checkItemsQuantityCart(req.body).then((sendToFront) => {
+    res.send(sendToFront)
+  }).catch((sendToFrontError) => {
+    console.log(sendToFrontError)
+  })
+
+})
+
+app.post('/addToOrdersfromcart', jsonParser, (req, res) => {
+  addToOrdersFromCart(req.body).then((sendToFront) => {
+    res.send(sendToFront)
+  }).catch((sendToFrontError) => {
+    console.log(sendToFrontError)
+  })
+})
+
+
+app.post('/editadress', jsonParser, (req, res) => {
+
+
+   EditAdressUser(req.body).then((sendToFront) => {
+    res.send(sendToFront)
+  }).catch((sendToFrontError) => {
+    console.log(sendToFrontError)
+  }) 
+})
+
+
+app.post('/editpayment', jsonParser, (req, res) => {
+
+
+  EditPayment(req.body).then((sendToFront) => {
+   res.send(sendToFront)
+ }).catch((sendToFrontError) => {
+   console.log(sendToFrontError)
+ }) 
 })
 
 
