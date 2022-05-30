@@ -80,8 +80,62 @@ export function Stoves(props) {
          {renderItems}
       </div>
     }
+    function changeFunc(i) {
+      if(i == 'incPrice'){
+        console.log('Sending request to backend-dishwashers')
+        Axios.post('http://localhost:5001/getStovesSort',{i}).then(res => {
+          console.log('Received response from back - response below');
+          console.log(res.data);
+          setArrayOfMachines(res.data);
+
+        }).catch(err => {
+          console.log(err);
+        })        
+      }
+      else if(i == 'DecPrice'){
+        console.log('Sending request to backend-dishwashers')
+        Axios.post('http://localhost:5001/getStovesSort',{i}).then(res => {
+          console.log('Received response from back - response below');
+          console.log(res.data);
+          setArrayOfMachines(res.data);
+
+        }).catch(err => {
+          console.log(err);
+        })        }
+      else if(i == 'alphabet'){
+        console.log('Sending request to backend-dishwashers')
+        Axios.post('http://localhost:5001/getStovesSort',{i}).then(res => {
+          console.log('Received response from back - response below');
+          console.log(res.data);
+          setArrayOfMachines(res.data);
+
+        }).catch(err => {
+          console.log(err);
+        })   }
+
+        else if(i == 'date'){
+          console.log('Sending request to backend-dishwashers')
+          Axios.post('http://localhost:5001/getStovesSort',{i}).then(res => {
+            console.log('Received response from back - response below');
+            console.log(res.data);
+            setArrayOfMachines(res.data);
+  
+          }).catch(err => {
+            console.log(err);
+          })  
+         }
+        }
     return (
         <div className="App">
+           <select id="selects"   onChange={e=>changeFunc(e.target.value)} >
+              <option >choose ur sort option</option>
+
+                <option value="incPrice">increasing price</option>
+                <option value="DecPrice">decreasing price</option>
+                <option value="alphabet">alphabet</option>
+                <option value="date">newest</option>
+
+              </select>
               <RenderStoves />
     </div>
 

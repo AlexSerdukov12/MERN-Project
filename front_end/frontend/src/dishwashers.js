@@ -1,7 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import Axios from 'axios'
+
+import {  Dropdown, DropdownButton } from 'react-bootstrap';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
+
 export function Dishwashers(props) {
   const [arrayOfMachines, setArrayOfMachines] = useState([])
+  const [selects,setSelecets]=useState()
   useEffect(() => {
     getDishwashers()
   },[])
@@ -62,7 +67,10 @@ export function Dishwashers(props) {
     }
     }
     function RenderDishwashers() {
+      
+      
       const renderItems = arrayOfMachines.map(item => 
+        
         <div style={{border: '2px black solid', height: '400px',width: '220px', margin: '20px', display: 'grid'}}>
           <img src={item.image_link} style={{maxHeight: '150px', maxWidth:'220px'}} />
           <div>{item.brand}</div>
@@ -75,11 +83,73 @@ export function Dishwashers(props) {
 
         </div>)
       return <div style={{width: '100%', padding: '40px', display: 'flex',flexWrap: 'wrap'}}>
+        
          {renderItems}
       </div>
     }
+    
+    function SortByIncPrice(){
+      alert('sort')
+    }
+    function changeFunc(i) {
+      if(i == 'incPrice'){
+        console.log('Sending request to backend-dishwashers')
+        Axios.post('http://localhost:5001/getdishwashersSort',{i}).then(res => {
+          console.log('Received response from back - response below');
+          console.log(res.data);
+          setArrayOfMachines(res.data);
+
+        }).catch(err => {
+          console.log(err);
+        })        
+      }
+      else if(i == 'DecPrice'){
+        console.log('Sending request to backend-dishwashers')
+        Axios.post('http://localhost:5001/getdishwashersSort',{i}).then(res => {
+          console.log('Received response from back - response below');
+          console.log(res.data);
+          setArrayOfMachines(res.data);
+
+        }).catch(err => {
+          console.log(err);
+        })        }
+      else if(i == 'alphabet'){
+        console.log('Sending request to backend-dishwashers')
+        Axios.post('http://localhost:5001/getdishwashersSort',{i}).then(res => {
+          console.log('Received response from back - response below');
+          console.log(res.data);
+          setArrayOfMachines(res.data);
+
+        }).catch(err => {
+          console.log(err);
+        })   }
+
+        else if(i == 'date'){
+          console.log('Sending request to backend-dishwashers')
+          Axios.post('http://localhost:5001/getdishwashersSort',{i}).then(res => {
+            console.log('Received response from back - response below');
+            console.log(res.data);
+            setArrayOfMachines(res.data);
+  
+          }).catch(err => {
+            console.log(err);
+          })  
+         }
+        }
+  
+
+    
     return (
         <div className="App">
+              <select id="selects"   onChange={e=>changeFunc(e.target.value)} >
+              <option >choose ur sort option</option>
+
+                <option value="incPrice">increasing price</option>
+                <option value="DecPrice">decreasing price</option>
+                <option value="alphabet">alphabet</option>
+                <option value="date">newest</option>
+
+              </select>
               <RenderDishwashers />
     </div>
 

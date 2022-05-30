@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import Axios, { AxiosError } from 'axios'
 export function Cart(props) {
   const [arrayOfMachines, setArrayOfMachines] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0)
+
   useEffect(() => {
     getCart()
   },[])
@@ -67,6 +69,12 @@ export function Cart(props) {
     }
     return (
         <div className="App">
+          <div>
+            <h1>Total To Pay:</h1>
+            
+          
+          </div>
+         
               <form action="/addAdress1">
                   <input type="submit" value="Buy all Cart" />
               </form>
