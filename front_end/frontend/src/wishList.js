@@ -61,8 +61,21 @@ export function WishList(props) {
          {renderItems}
       </div>
     }
+    function TotalAmount(){
+      var update=sessionStorage.getItem('user')
+      update=JSON.parse(update)
+      console.log(update.wishlist.length)
+      var sum=0;
+
+      for(var i=0; i< update.wishlist.length;++i){
+        sum+=update.wishlist[i].price
+      }
+      return sum
+    }
     return (
         <div className="App">
+                    <label>Total To Pay:{TotalAmount()} </label>
+
               <form action="/addAdress">
                   <input type="submit" value="Buy all wishlist" />
               </form>

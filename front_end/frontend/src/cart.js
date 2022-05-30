@@ -50,7 +50,17 @@ export function Cart(props) {
       })
     }
     }
+    function TotalAmount(){
+      var update=sessionStorage.getItem('user')
+      update=JSON.parse(update)
+      console.log(update.cart.length)
+      var sum=0;
 
+      for(var i=0; i< update.cart.length;++i){
+        sum+=update.cart[i].price
+      }
+      return sum
+    }
     function RenderCart() {
       const renderItems = arrayOfMachines.map(item => 
         <div style={{border: '2px black solid', height: '400px',width: '220px', margin: '20px', display: 'grid'}}>
@@ -69,12 +79,7 @@ export function Cart(props) {
     }
     return (
         <div className="App">
-          <div>
-            <h1>Total To Pay:</h1>
-            
-          
-          </div>
-         
+          <label>Total To Pay:{TotalAmount()} </label>
               <form action="/addAdress1">
                   <input type="submit" value="Buy all Cart" />
               </form>
