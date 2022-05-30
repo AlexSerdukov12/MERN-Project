@@ -54,7 +54,7 @@ export function Cart(props) {
       var update=sessionStorage.getItem('user')
       update=JSON.parse(update)
       console.log(update.cart.length)
-      let sum=0;
+      var sum=0;
 
       for(var i=0; i< update.cart.length;++i){
         sum+=update.cart[i].price
