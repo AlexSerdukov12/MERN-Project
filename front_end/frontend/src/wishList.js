@@ -65,7 +65,7 @@ export function WishList(props) {
       var update=sessionStorage.getItem('user')
       update=JSON.parse(update)
       console.log(update.wishlist.length)
-      var sum=0;
+      let sum=0;
 
       for(var i=0; i< update.wishlist.length;++i){
         sum+=update.wishlist[i].price
