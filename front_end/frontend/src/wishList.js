@@ -2,6 +2,10 @@ import React, {useEffect, useState} from 'react'
 import Axios from 'axios'
 export function WishList(props) {
   const [arrayOfMachines, setArrayOfMachines] = useState([])
+  const [coupon , setCoupon] = useState([''])
+  const [sum,setSum]= useState([0])
+  const [flag,setFlag]= useState(false)
+
   useEffect(() => {
     getWishList()
   },[])
@@ -14,6 +18,15 @@ export function WishList(props) {
           Axios.post('http://localhost:5001/getwishlist', {
             user: props.user
           }).then(res => {
+            var user=sessionStorage.getItem('user')
+            user=JSON.parse(user)
+            var temp=0
+            for(var k=0 ; k<user.wishlist.length; ++k){
+               temp+=(user.wishlist[k].price)
+            }
+            console.log(' here the temp ='+temp)
+
+            setSum(temp)
             setArrayOfMachines(res.data.wishlist);
 
           }).catch(err => {
@@ -54,33 +67,51 @@ export function WishList(props) {
       <div>{item.price} {item.currency}</div>
           <div>{item.name}</div>
           <button onClick={() => {removeFromCart(item)}}>delete item</button>
-
-
         </div>)
+
       return <div style={{width: '100%', padding: '40px', display: 'flex',flexWrap: 'wrap'}}>
          {renderItems}
       </div>
     }
-    function TotalAmount(){
-      var update=sessionStorage.getItem('user')
-      update=JSON.parse(update)
-      console.log(update.wishlist.length)
-      var sum=0;
+   
+    function checkCoupon()
+    {
+      console.log('flag is:'+flag)
 
-      for(var i=0; i< update.wishlist.length;++i){
-        sum+=update.wishlist[i].price
-      }
-      return sum
+      /// lets check coupon
+      Axios.post('http://localhost:5001/checkCoupon', {coupon}).then(res => {
+        if(res.data) 
+        {
+          console.log('flag is:'+flag)
+          if(!(flag)){
+            var a=sum*(1-res.data.discount)
+            setSum(a)
+            setFlag(true)
+
+          }
+          else{
+            alert('cant more then 1 valid code')
+          }
+        }
+        else {
+          alert('coupon invalid')
+        }
+      }).catch(err => {
+        console.log(err);
+      })
     }
     return (
         <div className="App">
-                    <label>Total To Pay:{TotalAmount()} </label>
-
+                    <label >Total To Pay:{sum} $ </label>
+                    <div>
+                      <div>enter a coupon
+                    <input value={coupon}  placeholder='coupon' onChange={event => {setCoupon(event.target.value)}} ></input>
+                    <button onClick={() => {checkCoupon()}}>check coupon</button>
+                    </div>
+                    </div>
               <form action="/addAdress">
                   <input type="submit" value="Buy all wishlist" />
               </form>
-
-
               <RenderWishList />
     </div>
 

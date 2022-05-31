@@ -984,3 +984,21 @@ function getOvensSort(data) {
     })  
 }
 exports.getOvensSort = getOvensSort;
+///
+function checkCoupon(data) {
+  async function run() {
+      try {
+        await client.connect();
+        const collection = client.db("coupons").collection("coupons_c")
+        const one=await collection.findOne({coupon: data.coupon })
+        return one
+      }
+      catch(err) {
+       return err
+      }
+    }
+    return new Promise((resolve,reject) => {
+      resolve(run())
+    })  
+}
+exports.checkCoupon = checkCoupon;

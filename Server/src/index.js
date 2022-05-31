@@ -9,7 +9,7 @@ const {searchLaundryMachines, searchDryers,
   searchStoves,searchAirconditioners,searchOvens,searchByString,
   searchUser,registerUser, updateUser,getwishList,updateUserCart,getCart,removeItemFromeUserCart,removeItemFromeUserwishlist,returnUser,
   addToOrdersFromWishList,checkItemsQuantity,checkItemsQuantityCart,addToOrdersFromCart,EditAdressUser,EditPayment,getDishWashersSort,
-  getLaundryMachinesSort,getDryersSort,getRefrigeratorsSort,getTelevisionsSort,getStovesSort,getAirconditionersSort,getOvensSort} = require('./mongoDB');
+  getLaundryMachinesSort,getDryersSort,getRefrigeratorsSort,getTelevisionsSort,getStovesSort,getAirconditionersSort,getOvensSort,checkCoupon} = require('./mongoDB');
 const res = require('express/lib/response');
 
 // create application/json parser
@@ -292,6 +292,18 @@ app.post('/getAirconditionersSort', jsonParser, (req, res) => {
 
 app.post('/getOvensSort', jsonParser, (req, res) => {
   getOvensSort(req.body).then((sendToFront) => {
+   res.send(sendToFront)
+ }).catch((sendToFrontError) => {
+   console.log(sendToFrontError)
+ }) 
+})
+
+app.post('/checkCoupon', jsonParser, (req, res) => {
+  checkCoupon(req.body).then((sendToFront) => {
+    console.log('thats what i get')
+
+    console.log(sendToFront)
+
    res.send(sendToFront)
  }).catch((sendToFrontError) => {
    console.log(sendToFrontError)
