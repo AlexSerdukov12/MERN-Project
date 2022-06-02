@@ -99,11 +99,7 @@ export function MyProfile(props) {
           <h1>Orders</h1>
           <RenderOrders/>
       </div> 
-      <div>
-
-      <button onClick={() => {chooseOption()}}>Admin options</button>
-
-      </div>
+      
       </div>
   );
 }
