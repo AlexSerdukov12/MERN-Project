@@ -1,18 +1,33 @@
 import "./AdminProd"
 import { Prod } from "./AdminProd";
+import { useNavigate } from 'react-router-dom';
 
-export function chooseOption()
+
+export function Chooseoption(props)
 {
+    const history=useNavigate();
 
+    function gohome()
+    {
+        history('/');
+    }
+
+    function goprod()
+    {
+
+        history('/adminoptions/adminproducts');
+    }
+    
     
 return(
 
-<div>
+<div className="Admin">
 
-    <button onClick={() => {Prod()}}>products</button>
-
-
-</div>
+    <h1>Testing</h1>
+    <button onClick={() => {goprod()}}>products</button>
+    <button onClick={() => {gohome()}}>home</button>
+ </div>
 
 );
 }
+

@@ -271,8 +271,8 @@ function searchUser(e_string,pw_string) {
 exports.searchUser = searchUser
 
 
-function registerUser(e_string,pw_string) {
-  async function run(e_string,pw_string) {
+function registerUser(e_string,pw_string,admin_b) {
+  async function run(e_string,pw_string,admin_b) {
       try {
         await client.connect();
         var collection1 = client.db("users").collection("users_c")
@@ -302,14 +302,14 @@ function registerUser(e_string,pw_string) {
               ], 
               orders:[]
               ,
-              isAdmin : false
+              isAdmin : admin_b
             })
             return true
           }
         }
         else
         {
-          return 'email has exist '
+          return 'email already exists'
         }
       }
       catch(err) {
@@ -317,7 +317,7 @@ function registerUser(e_string,pw_string) {
       }
     }
     return new Promise((resolve,reject) => {
-      resolve(run(e_string,pw_string))
+      resolve(run(e_string,pw_string,admin_b))
     })  
 }
 exports.registerUser = registerUser

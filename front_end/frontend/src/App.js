@@ -11,6 +11,8 @@ import {MyAddress} from './Address'
 import { MyPayment } from './payment';
 import {MyAddressS} from './Adresscart'
 import {MyPaymentT} from './paymentT'
+import {Chooseoption} from './AdminOptions'
+import{Prod} from './AdminProd'
 
 
 function App() {  
@@ -27,7 +29,8 @@ const [user,setuser]=useState(null)
 
         <Route path='/addAdress1' element={<MyAddressS user={user} setuser={setuser} />}  />
         <Route path='/addAdress1/payment1' element={<MyPaymentT user={user} setuser={setuser} />}  />
-
+        <Route path='/adminoptions' element={<Chooseoption user={user} setuser={setuser} />} />
+        <Route path='/adminoptions/adminproducts' element={<Prod user={user} setuser={setuser} />} />
 
      </Routes>
 </BrowserRouter>

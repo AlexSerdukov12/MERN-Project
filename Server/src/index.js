@@ -102,7 +102,8 @@ app.post('/login', jsonParser, (req, res) => {
 app.post('/register', jsonParser, (req, res) => {
     var email = req.body.email_data
     var pw = req.body.password_data
-    registerUser(email,pw).then((sendToFront) => {
+    var admin=req.body.admin_data
+    registerUser(email,pw,admin).then((sendToFront) => {
       res.send(sendToFront)
     }).catch((sendToFrontError) => {
       console.log(sendToFrontError)

@@ -4,7 +4,8 @@ import {useState} from 'react'
 import Axios from 'axios'
 import { Homepage } from './homepage'
 import {setLogin} from './App'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { chooseOption } from './AdminOptions'
 
 export function Signin(props) {
     const [Email, setEmaildData ]= useState('')
@@ -25,7 +26,11 @@ export function Signin(props) {
           console.log("here user  = "+ res.data)
           props.setuser(res.data)
           sessionStorage.setItem('user', JSON.stringify( res.data))
+          if(!res.data.isAdmin)
+          {
           history('/')
+          }else history('/adminoptions')
+
                     ///// לעבור לדף הבית כמחובר  ---- ככה לעשות?? ג
                               ///// שמירה של המשתמש 
          // window.location.href = "http://localhost:3000";
