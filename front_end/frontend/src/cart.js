@@ -63,6 +63,7 @@ export function Cart(props) {
       })
     }
     }
+
     function TotalAmount(){
       var update=sessionStorage.getItem('user')
       update=JSON.parse(update)
@@ -92,13 +93,11 @@ export function Cart(props) {
     }
     function checkCoupon()
     {
-      console.log('flag is:'+flag)
 
       /// lets check coupon
       Axios.post('http://localhost:5001/checkCoupon', {coupon}).then(res => {
         if(res.data) 
         {
-          console.log('flag is:'+flag)
           if(!(flag)){
             var a=sum*(1-res.data.discount)
             setSum(a)

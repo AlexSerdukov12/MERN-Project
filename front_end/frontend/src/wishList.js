@@ -24,7 +24,6 @@ export function WishList(props) {
             for(var k=0 ; k<user.wishlist.length; ++k){
                temp+=(user.wishlist[k].price)
             }
-            console.log(' here the temp ='+temp)
 
             setSum(temp)
             setArrayOfMachines(res.data.wishlist);
@@ -82,7 +81,6 @@ export function WishList(props) {
       Axios.post('http://localhost:5001/checkCoupon', {coupon}).then(res => {
         if(res.data) 
         {
-          console.log('flag is:'+flag)
           if(!(flag)){
             var a=sum*(1-res.data.discount)
             setSum(a)
