@@ -422,7 +422,6 @@ function returnUser(data) {
         const one = await collection1.findOne({email:data.email})
       if(one) return one 
         else return 'bad'
-       
       }
       catch(err) {
        return err
@@ -448,8 +447,14 @@ function addToOrdersFromWishList(data) {
       const stoves = client.db("stoves").collection("stoves_c")
       const televisions = client.db("televisions").collection("televisions_c")
       const collection1 = client.db("users").collection("users_c")
+
       ////// move all items from wishlist to orders ///////
+      
       const one = await collection1.updateOne({email: data.user.email},{ $push: { orders :{$each: data.user.wishlist}} })
+      ///// move from wishlist to colletion order
+      //await orders.updateMany($push :{ $each{}: data.user.wishlist}} )
+
+
       ////// update all DB's quantity of items from wishlist /////
       const updateItems= data.user.wishlist
       //  search each item on DB's by catalog and update quantity 
@@ -492,18 +497,17 @@ function addToOrdersFromWishList(data) {
             // nothing to do
         }
        }
-      
-      /////////// after update quantity send to Admin items
+      /////////// after update quantity send Admin items
+      const orders = client.db("orders").collection("compelete_oders")
+      const print = await orders.updateMany({_id: ObjectId("6298a8d8c81e8a9f3d25aa3b")},{ $push: { CompeleteORder :{$each: data.user.wishlist}} })
 
-      // console.log('im after update')
+
+
 
 
       ///////////remove all wishlist items
 
-      console.log('remvoe wishlist')
       await collection1.updateMany({email: data.user.email}, { $set : {wishlist: [] }} , {multi:true});
-
-
 
       return ' i added'
     }
@@ -530,22 +534,14 @@ function checkItemsQuantity(email_data) {
       const refrigerators = client.db("refrigerators").collection("refrigerators_c")
       const stoves = client.db("stoves").collection("stoves_c")
       const televisions = client.db("televisions").collection("televisions_c")
-
       const users = client.db("users").collection("users_c")
       const USER = await users.findOne({email:email_data.email})
-
-
-      console.log('ItemsToCheck')
-      console.log(USER.wishlist.length)
-
       //////////////////check quantity of items
       for(var i=0 ; i < USER.wishlist.length; ++i ){
-
         switch(USER.wishlist[i].catalog) {
           case 'airconditioners':
             const item=await airconditioners.findOne({_id: ObjectId(USER.wishlist[i]._id)})
             if(item.quantity<=0) return USER.wishlist[i].model +' ' +USER.wishlist[i].brand+' Product not available'
-
             break;
 
           case 'dishwashers':
@@ -599,7 +595,6 @@ function checkItemsQuantity(email_data) {
 }
 exports.checkItemsQuantity = checkItemsQuantity
 
-
 function checkItemsQuantityCart(email_data) {
   async function run() {
     try {
@@ -612,22 +607,14 @@ function checkItemsQuantityCart(email_data) {
       const refrigerators = client.db("refrigerators").collection("refrigerators_c")
       const stoves = client.db("stoves").collection("stoves_c")
       const televisions = client.db("televisions").collection("televisions_c")
-
       const users = client.db("users").collection("users_c")
       const USER = await users.findOne({email:email_data.email})
-
-
-      console.log('ItemsToCheck')
-      console.log(USER.cart.length)
-
       //////////////////check quantity of items
       for(var i=0 ; i < USER.cart.length; ++i ){
-
         switch(USER.cart[i].catalog) {
           case 'airconditioners':
             const item=await airconditioners.findOne({_id: ObjectId(USER.cart[i]._id)})
             if(item.quantity<=0) return USER.cart[i].model +' ' +USER.cart[i].brand+' Product not available'
-
             break;
 
           case 'dishwashers':
@@ -680,8 +667,6 @@ function checkItemsQuantityCart(email_data) {
   }) 
 }
 exports.checkItemsQuantityCart = checkItemsQuantityCart
-
-
 
 function addToOrdersFromCart(data) {
   async function run() {
@@ -743,13 +728,14 @@ function addToOrdersFromCart(data) {
        }
       
       /////////// after update quantity send to Admin items
-
+      /////////// after update quantity send Admin items
+      const orders = client.db("orders").collection("compelete_oders")
+      const print = await orders.updateMany({_id: ObjectId("6298a8d8c81e8a9f3d25aa3b")},{ $push: { CompeleteORder :{$each: data.user.cart}} })
       // console.log('im after update')
 
 
       ///////////remove all cart items
 
-      console.log('remvoe cart')
       await collection1.updateMany({email: data.user.email}, { $set : {cart: [] }} , {multi:true});
 
 
@@ -828,9 +814,6 @@ function EditAdressUser(data) {
 }
 exports.EditAdressUser = EditAdressUser
 
-
-
-
 function EditPayment(data) {
   async function run() {
    try {
@@ -857,3 +840,200 @@ function EditPayment(data) {
  }) 
 }
 exports.EditPayment = EditPayment
+
+function getDishWashersSort(data) {
+  async function run() {
+      try {
+        await client.connect();
+        var one
+        const collection = client.db("dishwashers").collection("dishwashers_c")
+        if (data.i == 'incPrice') one=await collection.find({ }).sort( { price:1  } )
+        if (data.i == 'DecPrice') one=await collection.find({ }).sort( { price:-1  } )
+        if (data.i == 'alphabet') one=await collection.find({ }).sort( { brand:1  } )
+        if (data.i == 'date') one=await collection.find({ }).sort( { date:-1  } )
+        return one.toArray()
+      }
+      catch(err) {
+       return err
+      }
+    }
+    return new Promise((resolve,reject) => {
+      resolve(run())
+    })  
+}
+///////////////
+exports.getDishWashersSort = getDishWashersSort;
+
+function getLaundryMachinesSort(data) {
+  async function run() {
+      try {
+        await client.connect();
+        var one
+        const collection = client.db("laundrymachines").collection("laundrymachines_c")
+        if (data.i == 'incPrice') one=await collection.find({ }).sort( { price:1  } )
+        if (data.i == 'DecPrice') one=await collection.find({ }).sort( { price:-1  } )
+        if (data.i == 'alphabet') one=await collection.find({ }).sort( { brand:1  } )
+        if (data.i == 'date') one=await collection.find({ }).sort( { date:-1  } )
+        return one.toArray()
+      }
+      catch(err) {
+       return err
+      }
+    }
+    return new Promise((resolve,reject) => {
+      resolve(run())
+    })  
+}
+exports.getLaundryMachinesSort = getLaundryMachinesSort;
+
+/////////////////////////////
+function getDryersSort(data) {
+  async function run() {
+      try {
+        await client.connect();
+        var one
+        const collection = client.db("dryers").collection("dryers_c")
+        if (data.i == 'incPrice') one=await collection.find({ }).sort( { price:1  } )
+        if (data.i == 'DecPrice') one=await collection.find({ }).sort( { price:-1  } )
+        if (data.i == 'alphabet') one=await collection.find({ }).sort( { brand:1  } )
+        if (data.i == 'date') one=await collection.find({ }).sort( { date:-1  } )
+        return one.toArray()
+      }
+      catch(err) {
+       return err
+      }
+    }
+    return new Promise((resolve,reject) => {
+      resolve(run())
+    })  
+}
+exports.getDryersSort = getDryersSort;
+//////////////
+function getRefrigeratorsSort(data) {
+  async function run() {
+      try {
+        await client.connect();
+        var one
+        const collection = client.db("refrigerators").collection("refrigerators_c")
+        if (data.i == 'incPrice') one=await collection.find({ }).sort( { price:1  } )
+        if (data.i == 'DecPrice') one=await collection.find({ }).sort( { price:-1  } )
+        if (data.i == 'alphabet') one=await collection.find({ }).sort( { brand:1  } )
+        if (data.i == 'date') one=await collection.find({ }).sort( { date:-1  } )
+        return one.toArray()
+      }
+      catch(err) {
+       return err
+      }
+    }
+    return new Promise((resolve,reject) => {
+      resolve(run())
+    })  
+}
+exports.getRefrigeratorsSort = getRefrigeratorsSort;
+
+///
+function getTelevisionsSort(data) {
+  async function run() {
+      try {
+        await client.connect();
+        var one
+        const collection = client.db("televisions").collection("televisions_c")
+        if (data.i == 'incPrice') one=await collection.find({ }).sort( { price:1  } )
+        if (data.i == 'DecPrice') one=await collection.find({ }).sort( { price:-1  } )
+        if (data.i == 'alphabet') one=await collection.find({ }).sort( { brand:1  } )
+        if (data.i == 'date') one=await collection.find({ }).sort( { date:-1  } )
+        return one.toArray()
+      }
+      catch(err) {
+       return err
+      }
+    }
+    return new Promise((resolve,reject) => {
+      resolve(run())
+    })  
+}
+exports.getTelevisionsSort = getTelevisionsSort;
+///
+function getStovesSort(data) {
+  async function run() {
+      try {
+        await client.connect();
+        var one
+        const collection = client.db("stoves").collection("stoves_c")
+        if (data.i == 'incPrice') one=await collection.find({ }).sort( { price:1  } )
+        if (data.i == 'DecPrice') one=await collection.find({ }).sort( { price:-1  } )
+        if (data.i == 'alphabet') one=await collection.find({ }).sort( { brand:1  } )
+        if (data.i == 'date') one=await collection.find({ }).sort( { date:-1  } )
+        return one.toArray()
+      }
+      catch(err) {
+       return err
+      }
+    }
+    return new Promise((resolve,reject) => {
+      resolve(run())
+    })  
+}
+exports.getStovesSort = getStovesSort;
+///
+function getAirconditionersSort(data) {
+  async function run() {
+      try {
+        await client.connect();
+        var one
+        const collection = client.db("airconditioners").collection("airconditioners_c")
+        if (data.i == 'incPrice') one=await collection.find({ }).sort( { price:1  } )
+        if (data.i == 'DecPrice') one=await collection.find({ }).sort( { price:-1  } )
+        if (data.i == 'alphabet') one=await collection.find({ }).sort( { brand:1  } )
+        if (data.i == 'date') one=await collection.find({ }).sort( { date:-1  } )
+        return one.toArray()
+      }
+      catch(err) {
+       return err
+      }
+    }
+    return new Promise((resolve,reject) => {
+      resolve(run())
+    })  
+}
+exports.getAirconditionersSort = getAirconditionersSort;
+///
+function getOvensSort(data) {
+  async function run() {
+      try {
+        await client.connect();
+        var one
+        const collection = client.db("ovens").collection("ovens_c")
+        if (data.i == 'incPrice') one=await collection.find({ }).sort( { price:1  } )
+        if (data.i == 'DecPrice') one=await collection.find({ }).sort( { price:-1  } )
+        if (data.i == 'alphabet') one=await collection.find({ }).sort( { brand:1  } )
+        if (data.i == 'date') one=await collection.find({ }).sort( { date:-1  } )
+        return one.toArray()
+      }
+      catch(err) {
+       return err
+      }
+    }
+    return new Promise((resolve,reject) => {
+      resolve(run())
+    })  
+}
+exports.getOvensSort = getOvensSort;
+///
+function checkCoupon(data) {
+  async function run() {
+      try {
+        await client.connect();
+        const collection = client.db("coupons").collection("coupons_c")
+        const one=await collection.findOne({coupon: data.coupon })
+        return one
+      }
+      catch(err) {
+       return err
+      }
+    }
+    return new Promise((resolve,reject) => {
+      resolve(run())
+    })  
+}
+exports.checkCoupon = checkCoupon;

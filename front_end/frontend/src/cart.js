@@ -2,6 +2,12 @@ import React, {useEffect, useState} from 'react'
 import Axios, { AxiosError } from 'axios'
 export function Cart(props) {
   const [arrayOfMachines, setArrayOfMachines] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [coupon , setCoupon] = useState([''])
+
+  const [sum,setSum]= useState([0])
+  const [flag,setFlag]= useState(false)
+
   useEffect(() => {
     getCart()
   },[])
@@ -14,6 +20,15 @@ export function Cart(props) {
           Axios.post('http://localhost:5001/getcart', {
             user: props.user
           }).then(res => {
+            var user=sessionStorage.getItem('user')
+            user=JSON.parse(user)
+            var temp=0
+            for(var k=0 ; k<user.cart.length; ++k){
+               temp+=(user.cart[k].price)
+            }
+            console.log(' here the temp ='+temp)
+
+            setSum(temp)
             console.log('Received response from back - response below');
             console.log(res.data.cart);
             setArrayOfMachines(res.data.cart);
@@ -49,6 +64,17 @@ export function Cart(props) {
     }
     }
 
+    function TotalAmount(){
+      var update=sessionStorage.getItem('user')
+      update=JSON.parse(update)
+      console.log(update.cart.length)
+      var sum=0;
+
+      for(var i=0; i< update.cart.length;++i){
+        sum+=update.cart[i].price
+      }
+      return sum
+    }
     function RenderCart() {
       const renderItems = arrayOfMachines.map(item => 
         <div style={{border: '2px black solid', height: '400px',width: '220px', margin: '20px', display: 'grid'}}>
@@ -65,9 +91,39 @@ export function Cart(props) {
          {renderItems}
       </div>
     }
+    function checkCoupon()
+    {
+
+      /// lets check coupon
+      Axios.post('http://localhost:5001/checkCoupon', {coupon}).then(res => {
+        if(res.data) 
+        {
+          if(!(flag)){
+            var a=sum*(1-res.data.discount)
+            setSum(a)
+            setFlag(true)
+
+          }
+          else{
+            alert('cant more then 1 valid code')
+          }
+        }
+        else {
+          alert('coupon invalid')
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+    }
     return (
         <div className="App">
-              <form action="/addAdress1">
+        <label >Total To Pay:{sum} $ </label>
+                    <div>
+                      <div>enter a coupon
+                    <input value={coupon}  placeholder='coupon' onChange={event => {setCoupon(event.target.value)}} ></input>
+                    <button onClick={() => {checkCoupon()}}>check coupon</button>
+                    </div>
+                    </div>              <form action="/addAdress1">
                   <input type="submit" value="Buy all Cart" />
               </form>
               <RenderCart />

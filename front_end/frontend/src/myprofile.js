@@ -18,12 +18,17 @@ export function MyProfile(props) {
   const [cvc, setCVC] = useState([user.payment[2]])
   const [arrayOfMachines, setArrayOfMachines] = useState([])
   useEffect(() => {
+    if(!props.user) {
+      alert('Please login to perform member operations!')
+    } 
+    else{
     Axios.post('http://localhost:5001/getuserorders', props.user   )
     .then(res => {
       setArrayOfMachines(res.data.orders)
     }).catch(err => {
       console.log(err);
     })
+  }
   }, []);
  
 
