@@ -767,6 +767,36 @@ function addToOrdersFromCart(data) {
 exports.addToOrdersFromCart = addToOrdersFromCart
 
 
+function EditProduct(data) {
+  async function run() {
+   try {
+   await client.connect();
+   const collection1 = client.db(data.db).collection(data.dbc)
+   collection1.updateMany({
+     "_id": data.id
+   },
+   {
+     $set: {
+       "brand": data.brand,
+       "model": data.model,
+       "price": data.price,
+       "quantity": data.quantity
+       
+     }
+   })
+   return true
+   }
+   catch(err) {
+    return err
+   }
+ }
+ return new Promise((resolve,reject) => {
+   resolve(run())
+ }) 
+}
+exports.EditProduct = EditProduct
+
+
 function EditAdressUser(data) {
    async function run() {
     try {

@@ -8,7 +8,7 @@ const {searchLaundryMachines, searchDryers,
   searchRefrigerators,searchDishwashers,searchTelevisions,
   searchStoves,searchAirconditioners,searchOvens,searchByString,
   searchUser,registerUser, updateUser,getwishList,updateUserCart,getCart,removeItemFromeUserCart,removeItemFromeUserwishlist,returnUser,
-  addToOrdersFromWishList,checkItemsQuantity,checkItemsQuantityCart,addToOrdersFromCart,EditAdressUser,EditPayment} = require('./mongoDB');
+  addToOrdersFromWishList,checkItemsQuantity,checkItemsQuantityCart,addToOrdersFromCart,EditAdressUser,EditPayment, EditProduct} = require('./mongoDB');
 const res = require('express/lib/response');
 
 // create application/json parser
@@ -211,6 +211,15 @@ app.post('/addToOrdersfromcart', jsonParser, (req, res) => {
   })
 })
 
+app.post('/editproduct', jsonParser, (req, res) => {
+
+
+  EditProduct(req.body).then((sendToFront) => {
+   res.send(sendToFront)
+ }).catch((sendToFrontError) => {
+   console.log(sendToFrontError)
+ }) 
+})
 
 app.post('/editadress', jsonParser, (req, res) => {
 

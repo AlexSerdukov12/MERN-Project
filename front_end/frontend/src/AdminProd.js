@@ -11,10 +11,14 @@ import { Ovens } from './ovens';
 import { useParams,useNavigate } from 'react-router-dom';
 
 
+
+
 export function Prod(props) {
     const [viewPage, setViewPage] = useState('home')
     const {page}=useParams()
-    const navigate = useNavigate();
+   
+
+    
   
     useEffect(() => {
       if(page !== undefined){
