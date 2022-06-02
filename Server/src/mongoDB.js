@@ -446,7 +446,6 @@ function addToOrdersFromWishList(data) {
       const stoves = client.db("stoves").collection("stoves_c")
       const televisions = client.db("televisions").collection("televisions_c")
       const collection1 = client.db("users").collection("users_c")
-      const orders = client.db("orders").collection("orders_c")
 
       ////// move all items from wishlist to orders ///////
       
@@ -497,10 +496,12 @@ function addToOrdersFromWishList(data) {
             // nothing to do
         }
        }
-      
-      /////////// after update quantity send to Admin items
+      /////////// after update quantity send Admin items
+      const orders = client.db("orders").collection("compelete_oders")
+      const print = await orders.updateMany({_id: ObjectId("6298a8d8c81e8a9f3d25aa3b")},{ $push: { CompeleteORder :{$each: data.user.wishlist}} })
 
-      // console.log('im after update')
+
+
 
 
       ///////////remove all wishlist items
@@ -726,7 +727,9 @@ function addToOrdersFromCart(data) {
        }
       
       /////////// after update quantity send to Admin items
-
+      /////////// after update quantity send Admin items
+      const orders = client.db("orders").collection("compelete_oders")
+      const print = await orders.updateMany({_id: ObjectId("6298a8d8c81e8a9f3d25aa3b")},{ $push: { CompeleteORder :{$each: data.user.cart}} })
       // console.log('im after update')
 
 
