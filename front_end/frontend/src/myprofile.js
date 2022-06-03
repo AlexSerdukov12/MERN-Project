@@ -33,9 +33,7 @@ export function MyProfile(props) {
  
 
     function saveAdressInfo(){
-      console.log('Sending request to backend-ovens')
       Axios.post('http://localhost:5001/editadress',{email,country,city,zip,nostreet,street,noaprtment,phonenumber}).then(res => {
-        console.log('Received response from back - response below');
         ///////////update sessionStorage
 
         console.log(res.data);
