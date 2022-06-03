@@ -60,9 +60,7 @@ export function Prod(props) {
       else if (viewPage == 'ovens') {
         return <Ovensedit/>
       }
-      else if (viewPage == 'Add product') {
-        return <Addproduct />
-      }
+      
       ///////////////////////////////////
      
       
