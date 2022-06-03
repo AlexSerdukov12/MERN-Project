@@ -7,8 +7,8 @@ var bodyParser = require('body-parser')
 const {searchLaundryMachines, searchDryers,
   searchRefrigerators,searchDishwashers,searchTelevisions,
   searchStoves,searchAirconditioners,searchOvens,searchByString,
-  searchUser,registerUser, updateUser,getwishList,updateUserCart,getCart,removeItemFromeUserCart,removeItemFromeUserwishlist,returnUser,
-  addToOrdersFromWishList,checkItemsQuantity,checkItemsQuantityCart,addToOrdersFromCart,EditAdressUser,EditPayment,getDishWashersSort,
+  searchUser,registerUser, updateUser,getwishList,updateUserCart,removeProduct,getCart,removeItemFromeUserCart,removeItemFromeUserwishlist,returnUser,
+  addToOrdersFromWishList,checkItemsQuantity,checkItemsQuantityCart,addToOrdersFromCart,EditAdressUser,EditPayment,EditProduct,getDishWashersSort,
   getLaundryMachinesSort,getDryersSort,getRefrigeratorsSort,getTelevisionsSort,getStovesSort,getAirconditionersSort,getOvensSort,checkCoupon} = require('./mongoDB');
 const res = require('express/lib/response');
 
@@ -144,8 +144,18 @@ app.post('/addtocart', jsonParser, (req, res) => {
   })
 })
 
+app.post('/removeproduct', jsonParser, (req, res) => {
+  removeProduct(req.body).then((sendToFront) => {
+
+    res.send(sendToFront)
+  }).catch((sendToFrontError) => {
+    console.log(sendToFrontError)
+  })
+})
+
 app.post('/removefromcart', jsonParser, (req, res) => {
   removeItemFromeUserCart(req.body).then((sendToFront) => {
+
     res.send(sendToFront)
   }).catch((sendToFrontError) => {
     console.log(sendToFrontError)
@@ -216,8 +226,10 @@ app.post('/editproduct', jsonParser, (req, res) => {
 
 
   EditProduct(req.body).then((sendToFront) => {
+   console.log("index")
    res.send(sendToFront)
  }).catch((sendToFrontError) => {
+   console.log("index failed")
    console.log(sendToFrontError)
  }) 
 })

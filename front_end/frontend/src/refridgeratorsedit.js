@@ -3,7 +3,7 @@ import Axios from 'axios'
 import Popup from './AdminPopup'
 
 
-export function Dishwashersedit() {
+export function Refridgesedit() {
   const [arrayOfMachines, setArrayOfMachines] = useState([])
   const [isOpen, setIsOpen] = useState(false)
 
@@ -13,12 +13,12 @@ export function Dishwashersedit() {
   const [price, setPrice] = useState(0)
   const [currency, setCurrency] = useState('')
   const [id , setId]=useState('')
-  const db='dishwashers'
-  const dbc='dishwashers_c'
+  const db='refrigerators'
+  const dbc='refrigerators_c'
   
 
   useEffect(() => {
-    getDishwashers()
+    getRefrigerators()
   },[])
 
 
@@ -38,9 +38,9 @@ export function Dishwashersedit() {
     
 
     }
-    function getDishwashers () {
-      console.log('Sending request to backend-dishwashers')
-      Axios.get('http://localhost:5001/getdishwashers').then(res => {
+    function getRefrigerators () {
+      console.log('Sending request to backend-getrefrigerators')
+      Axios.get('http://localhost:5001/getrefrigerators').then(res => {
         console.log('Received response from back - response below');
         console.log(res.data);
         setArrayOfMachines(res.data);

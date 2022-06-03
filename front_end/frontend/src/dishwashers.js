@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import Axios from 'axios'
 
-import {  Dropdown, DropdownButton } from 'react-bootstrap';
-import DropdownItem from 'react-bootstrap/esm/DropdownItem';
+//import {  Dropdown, DropdownButton } from 'react-bootstrap';
+//import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 export function Dishwashers(props) {
   const [arrayOfMachines, setArrayOfMachines] = useState([])

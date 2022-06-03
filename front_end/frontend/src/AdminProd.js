@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Menu } from './MenuNavBar'
+import { Menu } from './EditMenu'
 import { LaundryMachines } from './laundryMachines'
 import { Dryers } from './Dryers';
 import { Refrigerators } from './refrigerators';
@@ -10,11 +10,17 @@ import { Airconditioners } from './airconditioners';
 import { Ovens } from './ovens';
 import { useParams,useNavigate } from 'react-router-dom';
 
-
-
+import {Dishwashersedit} from './dishwashersedit'
+import { AirConditionersedit } from './airconditionersedit';
+import { Tvsedit } from './televisionsedit';
+import { Laundriesedit } from './laundrymachinesedit';
+import { Dryersedit } from './Dryersedit';
+import { Refridgesedit } from './refridgeratorsedit';
+import { Stovesedit } from './stovesedit';
+import { Ovensedit } from './ovensedit';
 
 export function Prod(props) {
-    const [viewPage, setViewPage] = useState('home')
+    const [viewPage, setViewPage] = useState('main')
     const {page}=useParams()
    
 
@@ -28,30 +34,30 @@ export function Prod(props) {
       function InhouseRender () {
       
        if (viewPage == 'laundrymachines') {
-         return <LaundryMachines user={props.user}/>
+         return <Laundriesedit/>
       }
       else if (viewPage == 'dryers') {
-        return <Dryers user={props.user} />
+        return <Dryersedit />
       }
       else if (viewPage == 'refrigerators') {
   
-        return <Refrigerators user={props.user}/>
+        return <Refridgesedit/>
       }
       else if (viewPage == 'dishwashers') {
-        return <Dishwashers user={props.user}/>
+        return <Dishwashersedit/>
       }
       else if (viewPage == 'televisions') {
-        return <Televisions user={props.user}/>
+        return <Tvsedit/>
       }
       else if (viewPage == 'stoves') {
   
-        return <Stoves user={props.user}/>
+        return <Stovesedit/>
       }
       else if (viewPage == 'airconditioners') {
-        return <Airconditioners user={props.user}/>
+        return <AirConditionersedit/>
       }
       else if (viewPage == 'ovens') {
-        return <Ovens user={props.user}/>
+        return <Ovensedit/>
       }
       ///////////////////////////////////
      

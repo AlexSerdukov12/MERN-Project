@@ -6,7 +6,7 @@ export function Stoves(props) {
     getStoves()
   },[])
     function getStoves () {
-      console.log('Sending request to backend-televisions')
+      console.log('Sending request to backend-stoves')
       Axios.get('http://localhost:5001/getstoves').then(res => {
         console.log('Received response from back - response below');
         console.log(res.data);

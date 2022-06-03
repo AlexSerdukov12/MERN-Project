@@ -375,6 +375,27 @@ function updateUserCart(data) {
 }
 exports.updateUserCart = updateUserCart
 
+
+
+function removeProduct(data) {
+  const remove=data.item
+  async function run() {
+    try {
+      await client.connect();
+      var collection1 = client.db("airconditioners").collection("airconditioners_c")
+      const one = await collection1.updateOne({email: data.user.email} ,   { $pull: { cart: data.item } })
+      return true
+    }
+    catch(err) {
+     return err
+    }
+  }
+  return new Promise((resolve,reject) => {
+    resolve(run())
+  }) 
+}
+exports.removeProduct = removeProduct
+
 function removeItemFromeUserCart(data) {
   const remove=data.item
   async function run() {
@@ -759,14 +780,15 @@ function EditProduct(data) {
    await client.connect();
    const collection1 = client.db(data.db).collection(data.dbc)
    collection1.updateMany({
-     "_id": data.id
+     "id": data.id
    },
    {
      $set: {
        "brand": data.brand,
        "model": data.model,
        "price": data.price,
-       "quantity": data.quantity
+       "quantity": data.quantity,
+       "currency": data.currency
        
      }
    })
