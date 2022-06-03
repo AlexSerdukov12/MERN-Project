@@ -18,7 +18,6 @@ import { Dryersedit } from './Dryersedit';
 import { Refridgesedit } from './refridgeratorsedit';
 import { Stovesedit } from './stovesedit';
 import { Ovensedit } from './ovensedit';
-import {addproduct} from './Addproduct';
 
 export function Prod(props) {
     const [viewPage, setViewPage] = useState('Add product')
