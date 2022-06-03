@@ -778,6 +778,7 @@ function EditProduct(data) {
   async function run() {
    try {
    await client.connect();
+   console.log(data)
    const collection1 = client.db(data.db).collection(data.dbc)
    collection1.updateMany({
      "id": data.id

@@ -18,9 +18,10 @@ import { Dryersedit } from './Dryersedit';
 import { Refridgesedit } from './refridgeratorsedit';
 import { Stovesedit } from './stovesedit';
 import { Ovensedit } from './ovensedit';
+import {addproduct} from './Addproduct';
 
 export function Prod(props) {
-    const [viewPage, setViewPage] = useState('main')
+    const [viewPage, setViewPage] = useState('Add product')
     const {page}=useParams()
    
 
@@ -32,8 +33,8 @@ export function Prod(props) {
       }
     },[])
       function InhouseRender () {
-      
-       if (viewPage == 'laundrymachines') {
+
+         if (viewPage == 'laundrymachines') {
          return <Laundriesedit/>
       }
       else if (viewPage == 'dryers') {
@@ -58,6 +59,9 @@ export function Prod(props) {
       }
       else if (viewPage == 'ovens') {
         return <Ovensedit/>
+      }
+      else if (viewPage == 'Add product') {
+        return <Addproduct />
       }
       ///////////////////////////////////
      

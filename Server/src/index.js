@@ -224,14 +224,14 @@ app.post('/addToOrdersfromcart', jsonParser, (req, res) => {
 
 app.post('/editproduct', jsonParser, (req, res) => {
 
-
+  
   EditProduct(req.body).then((sendToFront) => {
    console.log("index")
    res.send(sendToFront)
  }).catch((sendToFrontError) => {
    console.log("index failed")
    console.log(sendToFrontError)
- }) 
+ })  
 })
 
 app.post('/editadress', jsonParser, (req, res) => {
